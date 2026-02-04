@@ -57,7 +57,7 @@ jobs:
       - name: Build mobile web
         run: |
           cd apps/mobile
-          npx expo export --platform web
+          EXPO_BASE_URL=/assistente-operacional npx expo export --platform web
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
