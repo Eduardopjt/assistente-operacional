@@ -1,0 +1,2 @@
+# Placeholder favicon
+# Web favicon (32x32 or 48x48)

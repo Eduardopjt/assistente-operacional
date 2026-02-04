@@ -1,0 +1,2 @@
+# Placeholder splash screen
+# Replace with actual splash image matching app.json config

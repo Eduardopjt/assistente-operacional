@@ -1,0 +1,269 @@
+.finance-screen {
+  min-height: 100vh;
+  padding: 48px;
+  background-color: #0f1115;
+}
+
+.finance-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.finance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.finance-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.add-button {
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f1115;
+  background-color: #22c55e;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.add-button:hover {
+  background-color: #16a34a;
+}
+
+.summary-card {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.summary-item {
+  background-color: #1a1d24;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-label {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.summary-value {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.summary-value.positive {
+  color: #22c55e;
+}
+
+.summary-value.negative {
+  color: #ef4444;
+}
+
+.entries-list {
+  background-color: #1a1d24;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.entry-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #0f1115;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.entry-item:last-child {
+  margin-bottom: 0;
+}
+
+.entry-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.entry-category {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.entry-notes {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.entry-date {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.entry-value {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #1a1d24;
+  border-radius: 16px;
+  padding: 32px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-content h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 24px;
+}
+
+.type-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.type-button {
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #9ca3af;
+  background-color: #0f1115;
+  border: 2px solid #374151;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.type-button.active {
+  background-color: #22c55e20;
+  border-color: #22c55e;
+  color: #22c55e;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 15px;
+  color: #ffffff;
+  background-color: #0f1115;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.input::placeholder {
+  color: #6b7280;
+}
+
+.textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.category-button {
+  padding: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #9ca3af;
+  background-color: #0f1115;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.category-button:hover {
+  background-color: #374151;
+}
+
+.category-button.active {
+  background-color: #22c55e20;
+  border-color: #22c55e;
+  color: #22c55e;
+}
+
+.modal-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.modal-button {
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.modal-button.cancel {
+  color: #9ca3af;
+  background-color: #374151;
+}
+
+.modal-button.cancel:hover {
+  background-color: #4b5563;
+}
+
+.modal-button.save {
+  color: #0f1115;
+  background-color: #22c55e;
+}
+
+.modal-button.save:hover {
+  background-color: #16a34a;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.empty-state p {
+  font-size: 15px;
+  color: #9ca3af;
+  margin: 0;
+}

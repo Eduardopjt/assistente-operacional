@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+
+# Mobile specific
+apps/mobile/.expo/
+apps/mobile/android/
+apps/mobile/ios/
+
+# Desktop specific
+apps/desktop/target/
+apps/desktop/src-tauri/target/
+
+# SQLite
+*.db
+*.db-journal
