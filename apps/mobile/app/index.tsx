@@ -45,12 +45,12 @@ export default function Index() {
           </Text>
         </View>
 
-        <Pressable 
+        <Pressable
           style={({ pressed }) => [
             styles.primaryButton,
             pressed && styles.primaryButtonPressed,
-            Platform.OS === 'web' && { cursor: 'pointer' }
-          ]} 
+            Platform.OS === 'web' && { cursor: 'pointer' },
+          ]}
           onPress={handleStartDay}
         >
           <Text style={styles.primaryButtonText}>
@@ -59,32 +59,32 @@ export default function Index() {
         </Pressable>
 
         <View style={styles.quickActions}>
-          <Pressable 
+          <Pressable
             style={({ pressed }) => [
               styles.quickAction,
               pressed && styles.quickActionPressed,
-              Platform.OS === 'web' && { cursor: 'pointer' }
-            ]} 
+              Platform.OS === 'web' && { cursor: 'pointer' },
+            ]}
             onPress={() => router.push('/finance')}
           >
             <Text style={styles.quickActionText}>💰 Financeiro</Text>
           </Pressable>
-          <Pressable 
+          <Pressable
             style={({ pressed }) => [
               styles.quickAction,
               pressed && styles.quickActionPressed,
-              Platform.OS === 'web' && { cursor: 'pointer' }
-            ]} 
+              Platform.OS === 'web' && { cursor: 'pointer' },
+            ]}
             onPress={() => router.push('/projects')}
           >
             <Text style={styles.quickActionText}>📋 Projetos</Text>
           </Pressable>
-          <Pressable 
+          <Pressable
             style={({ pressed }) => [
               styles.quickAction,
               pressed && styles.quickActionPressed,
-              Platform.OS === 'web' && { cursor: 'pointer' }
-            ]} 
+              Platform.OS === 'web' && { cursor: 'pointer' },
+            ]}
             onPress={() => router.push('/history')}
           >
             <Text style={styles.quickActionText}>📅 Histórico</Text>

@@ -22,10 +22,10 @@ body {
 /* Fix for touchable elements on web - FORCE pointer events */
 button,
 a,
-[role="button"],
-[data-pressable="true"],
+[role='button'],
+[data-pressable='true'],
 div[onclick],
-div[data-focusable="true"] {
+div[data-focusable='true'] {
   cursor: pointer !important;
   pointer-events: auto !important;
   -webkit-user-select: none;
@@ -33,8 +33,8 @@ div[data-focusable="true"] {
 }
 
 /* React Native Web specific fixes */
-div[role="button"] > div,
-div[role="button"] span,
+div[role='button'] > div,
+div[role='button'] span,
 button > div,
 button span {
   pointer-events: none !important;
@@ -48,4 +48,3 @@ select {
   -webkit-user-select: text;
   user-select: text;
 }
-
