@@ -19,25 +19,33 @@ body {
   flex-direction: column;
 }
 
-/* Fix for touchable elements on web */
-[role="button"],
+/* Fix for touchable elements on web - FORCE pointer events */
 button,
 a,
-input,
-textarea,
-select {
-  cursor: pointer;
+[role="button"],
+[data-pressable="true"],
+div[onclick],
+div[data-focusable="true"] {
+  cursor: pointer !important;
+  pointer-events: auto !important;
   -webkit-user-select: none;
   user-select: none;
 }
 
+/* React Native Web specific fixes */
+div[role="button"] > div,
+div[role="button"] span,
+button > div,
+button span {
+  pointer-events: none !important;
+}
+
 input,
-textarea {
+textarea,
+select {
+  cursor: text !important;
+  pointer-events: auto !important;
   -webkit-user-select: text;
   user-select: text;
 }
 
-/* Ensure React Native components are clickable */
-div[data-focusable="true"] {
-  cursor: pointer;
-}

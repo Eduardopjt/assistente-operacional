@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
 import { useAppStore } from '../store/app-store';
@@ -45,22 +45,50 @@ export default function Index() {
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.primaryButton} onPress={handleStartDay}>
+        <Pressable 
+          style={({ pressed }) => [
+            styles.primaryButton,
+            pressed && styles.primaryButtonPressed,
+            Platform.OS === 'web' && { cursor: 'pointer' }
+          ]} 
+          onPress={handleStartDay}
+        >
           <Text style={styles.primaryButtonText}>
             {hasCheckin ? '📊 Ver Painel do Dia' : '✨ Iniciar Meu Dia'}
           </Text>
-        </TouchableOpacity>
+        </Pressable>
 
         <View style={styles.quickActions}>
-          <TouchableOpacity style={styles.quickAction} onPress={() => router.push('/finance')}>
+          <Pressable 
+            style={({ pressed }) => [
+              styles.quickAction,
+              pressed && styles.quickActionPressed,
+              Platform.OS === 'web' && { cursor: 'pointer' }
+            ]} 
+            onPress={() => router.push('/finance')}
+          >
             <Text style={styles.quickActionText}>💰 Financeiro</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.quickAction} onPress={() => router.push('/projects')}>
+          </Pressable>
+          <Pressable 
+            style={({ pressed }) => [
+              styles.quickAction,
+              pressed && styles.quickActionPressed,
+              Platform.OS === 'web' && { cursor: 'pointer' }
+            ]} 
+            onPress={() => router.push('/projects')}
+          >
             <Text style={styles.quickActionText}>📋 Projetos</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.quickAction} onPress={() => router.push('/history')}>
+          </Pressable>
+          <Pressable 
+            style={({ pressed }) => [
+              styles.quickAction,
+              pressed && styles.quickActionPressed,
+              Platform.OS === 'web' && { cursor: 'pointer' }
+            ]} 
+            onPress={() => router.push('/history')}
+          >
             <Text style={styles.quickActionText}>📅 Histórico</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </View>
@@ -116,6 +144,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 32,
   },
+  primaryButtonPressed: {
+    backgroundColor: '#16A34A',
+    opacity: 0.8,
+  },
   primaryButtonText: {
     fontSize: 17,
     fontWeight: '600',
@@ -134,6 +166,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#374151',
+  },
+  quickActionPressed: {
+    backgroundColor: '#242830',
+    borderColor: '#4B5563',
   },
   quickActionText: {
     fontSize: 14,
