@@ -37,18 +37,23 @@ export default function DashboardScreen() {
           <View style={styles.heroState}>
             <StateBadge state={todayState} size="lg" />
           </View>
-          
+
           {/* Overload Warning Badge */}
-          {assessment && (assessment.overloadLevel === 'high' || assessment.overloadLevel === 'critical') && (
-            <View style={[
-              styles.overloadBadge,
-              assessment.overloadLevel === 'critical' && styles.overloadBadgeCritical
-            ]}>
-              <Text style={styles.overloadBadgeText}>
-                {assessment.overloadLevel === 'critical' ? '🔴 SOBRECARGA CRÍTICA' : '🟡 SOBRECARGA ALTA'}
-              </Text>
-            </View>
-          )}
+          {assessment &&
+            (assessment.overloadLevel === 'high' || assessment.overloadLevel === 'critical') && (
+              <View
+                style={[
+                  styles.overloadBadge,
+                  assessment.overloadLevel === 'critical' && styles.overloadBadgeCritical,
+                ]}
+              >
+                <Text style={styles.overloadBadgeText}>
+                  {assessment.overloadLevel === 'critical'
+                    ? '🔴 SOBRECARGA CRÍTICA'
+                    : '🟡 SOBRECARGA ALTA'}
+                </Text>
+              </View>
+            )}
 
           <Text style={styles.heroDate}>
             {new Date().toLocaleDateString('pt-BR', {
@@ -82,13 +87,15 @@ export default function DashboardScreen() {
         {summary && (
           <ExecutiveCard elevated padding="xl">
             <Text style={styles.cardLabel}>RESUMO SEMANAL</Text>
-            
+
             {/* Victories */}
             {summary.victories.length > 0 && (
               <View style={styles.summarySection}>
                 <Text style={styles.summarySectionTitle}>✅ Vitórias</Text>
                 {summary.victories.map((victory, i) => (
-                  <Text key={i} style={styles.summaryItem}>• {victory}</Text>
+                  <Text key={i} style={styles.summaryItem}>
+                    • {victory}
+                  </Text>
                 ))}
               </View>
             )}
@@ -98,7 +105,9 @@ export default function DashboardScreen() {
               <View style={styles.summarySection}>
                 <Text style={styles.summarySectionTitle}>⚠️ Bloqueios</Text>
                 {summary.blockers.map((blocker, i) => (
-                  <Text key={i} style={styles.summaryItem}>• {blocker}</Text>
+                  <Text key={i} style={styles.summaryItem}>
+                    • {blocker}
+                  </Text>
                 ))}
               </View>
             )}
@@ -108,7 +117,9 @@ export default function DashboardScreen() {
               <View style={styles.summarySection}>
                 <Text style={styles.summarySectionTitle}>💡 Insights</Text>
                 {summary.insights.slice(0, 3).map((insight, i) => (
-                  <Text key={i} style={styles.summaryInsight}>• {insight}</Text>
+                  <Text key={i} style={styles.summaryInsight}>
+                    • {insight}
+                  </Text>
                 ))}
               </View>
             )}

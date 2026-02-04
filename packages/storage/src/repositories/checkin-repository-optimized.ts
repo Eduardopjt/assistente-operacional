@@ -30,7 +30,7 @@ export class OptimizedCheckinRepository implements CheckinRepository {
 
   create(data: Omit<DailyCheckin, 'id'>): DailyCheckin {
     const end = this.monitor.start('checkin.create');
-    
+
     const checkin: DailyCheckin = {
       id: generateId(),
       ...data,
@@ -61,7 +61,7 @@ export class OptimizedCheckinRepository implements CheckinRepository {
 
   createMany(checkins: Omit<DailyCheckin, 'id'>[]): { inserted: number; errors: Error[] } {
     const end = this.monitor.start('checkin.createMany');
-    
+
     const now = Date.now();
     const records = checkins.map((checkin) => ({
       id: generateId(),
@@ -75,7 +75,7 @@ export class OptimizedCheckinRepository implements CheckinRepository {
     }));
 
     const result = bulkInsert(this.db, 'daily_checkins', records);
-    
+
     const userIds = new Set(checkins.map((c) => c.user_id));
     userIds.forEach((userId) => {
       this.cache.invalidate(`checkin:user:${userId}`);
@@ -94,11 +94,11 @@ export class OptimizedCheckinRepository implements CheckinRepository {
     const stmt = this.db.prepare('SELECT * FROM daily_checkins WHERE id = ?');
     const row = stmt.get(id) as any;
     const checkin = row ? this.mapRowToCheckin(row) : null;
-    
+
     if (checkin) {
       this.cache.set(cacheKey, checkin);
     }
-    
+
     end();
     return checkin;
   }
@@ -116,11 +116,11 @@ export class OptimizedCheckinRepository implements CheckinRepository {
     `);
     const row = stmt.get(userId, dayStart) as any;
     const checkin = row ? this.mapRowToCheckin(row) : null;
-    
+
     if (checkin) {
       this.cache.set(cacheKey, checkin);
     }
-    
+
     end();
     return checkin;
   }
@@ -139,11 +139,11 @@ export class OptimizedCheckinRepository implements CheckinRepository {
     `);
     const row = stmt.get(userId) as any;
     const checkin = row ? this.mapRowToCheckin(row) : null;
-    
+
     if (checkin) {
       this.cache.set(cacheKey, checkin);
     }
-    
+
     end();
     return checkin;
   }
@@ -162,7 +162,7 @@ export class OptimizedCheckinRepository implements CheckinRepository {
     `);
     const rows = stmt.all(userId, cutoff) as any[];
     const checkins = rows.map((row) => this.mapRowToCheckin(row));
-    
+
     this.cache.set(cacheKey, checkins);
     end();
     return checkins;
@@ -170,7 +170,7 @@ export class OptimizedCheckinRepository implements CheckinRepository {
 
   update(checkin: DailyCheckin): void {
     const end = this.monitor.start('checkin.update');
-    
+
     const stmt = this.db.prepare(`
       UPDATE daily_checkins 
       SET caixa_status = ?, energia = ?, pressao = ?, estado_calculado = ?

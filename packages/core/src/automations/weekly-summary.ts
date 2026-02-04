@@ -85,9 +85,7 @@ export function generateWeeklySummary(
 
   // Calculate blockers (days with low energy or critical caixa)
   const blockers: string[] = [];
-  const badDays = weekCheckins.filter(
-    (c) => c.energia === 'baixa' || c.caixa_status === 'critico'
-  );
+  const badDays = weekCheckins.filter((c) => c.energia === 'baixa' || c.caixa_status === 'critico');
   if (badDays.length >= 3) {
     blockers.push(`${badDays.length} dia(s) com baixa energia ou caixa crítico`);
   }
@@ -173,9 +171,7 @@ export function generateWeeklySummary(
 
   if (totalExpenses > totalIncome && totalIncome > 0) {
     const deficit = totalExpenses - totalIncome;
-    insights.push(
-      `⚠️ Déficit de R$ ${(deficit / 100).toFixed(2)} nesta semana. Revise gastos.`
-    );
+    insights.push(`⚠️ Déficit de R$ ${(deficit / 100).toFixed(2)} nesta semana. Revise gastos.`);
   }
 
   if (energyScore < 0.4) {

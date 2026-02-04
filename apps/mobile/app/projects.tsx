@@ -123,23 +123,29 @@ export default function ProjectsScreen() {
         </View>
 
         {/* Overload Warning */}
-        {assessment && (assessment.overloadLevel === 'high' || assessment.overloadLevel === 'critical') && (
-          <ExecutiveCard elevated padding="lg" style={styles.overloadCard}>
-            <View style={styles.overloadHeader}>
-              <Text style={styles.overloadLabel}>
-                {assessment.overloadLevel === 'critical' ? '🔴 SOBRECARGA CRÍTICA' : '🟡 SOBRECARGA ALTA'}
+        {assessment &&
+          (assessment.overloadLevel === 'high' || assessment.overloadLevel === 'critical') && (
+            <ExecutiveCard elevated padding="lg" style={styles.overloadCard}>
+              <View style={styles.overloadHeader}>
+                <Text style={styles.overloadLabel}>
+                  {assessment.overloadLevel === 'critical'
+                    ? '🔴 SOBRECARGA CRÍTICA'
+                    : '🟡 SOBRECARGA ALTA'}
+                </Text>
+                <Text style={styles.overloadScore}>{Math.round(assessment.score)}%</Text>
+              </View>
+              <Text style={styles.overloadDescription}>
+                Você está em{' '}
+                {assessment.overloadLevel === 'critical' ? 'risco severo' : 'risco moderado'} de
+                burnout. Considere pausar projetos ou redistribuir prioridades.
               </Text>
-              <Text style={styles.overloadScore}>{Math.round(assessment.score)}%</Text>
-            </View>
-            <Text style={styles.overloadDescription}>
-              Você está em {assessment.overloadLevel === 'critical' ? 'risco severo' : 'risco moderado'} de burnout. 
-              Considere pausar projetos ou redistribuir prioridades.
-            </Text>
-            {assessment.recommendations.slice(0, 2).map((rec, idx) => (
-              <Text key={idx} style={styles.overloadRecommendation}>• {rec}</Text>
-            ))}
-          </ExecutiveCard>
-        )}
+              {assessment.recommendations.slice(0, 2).map((rec, idx) => (
+                <Text key={idx} style={styles.overloadRecommendation}>
+                  • {rec}
+                </Text>
+              ))}
+            </ExecutiveCard>
+          )}
 
         {/* Add Button */}
         <PrimaryActionButton onPress={() => setShowModal(true)} fullWidth size="md">
@@ -166,10 +172,7 @@ export default function ProjectsScreen() {
                       ]}
                     >
                       <Text
-                        style={[
-                          styles.statusText,
-                          { color: STATUS_CONFIG[project.status].color },
-                        ]}
+                        style={[styles.statusText, { color: STATUS_CONFIG[project.status].color }]}
                       >
                         {STATUS_CONFIG[project.status].label.toUpperCase()}
                       </Text>
@@ -208,10 +211,7 @@ export default function ProjectsScreen() {
                       ]}
                     >
                       <Text
-                        style={[
-                          styles.statusText,
-                          { color: STATUS_CONFIG[project.status].color },
-                        ]}
+                        style={[styles.statusText, { color: STATUS_CONFIG[project.status].color }]}
                       >
                         {STATUS_CONFIG[project.status].label.toUpperCase()}
                       </Text>
@@ -244,10 +244,7 @@ export default function ProjectsScreen() {
                       ]}
                     >
                       <Text
-                        style={[
-                          styles.statusText,
-                          { color: STATUS_CONFIG[project.status].color },
-                        ]}
+                        style={[styles.statusText, { color: STATUS_CONFIG[project.status].color }]}
                       >
                         {STATUS_CONFIG[project.status].label.toUpperCase()}
                       </Text>

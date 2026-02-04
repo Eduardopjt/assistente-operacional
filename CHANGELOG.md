@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
+
 - Decision logging feature (schema exists, UI pending)
 - Push notifications for mobile
 - Keyboard shortcuts for desktop
@@ -24,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 **Core Features**
+
 - Offline-first architecture with local SQLite storage
 - Intelligent rules engine for operational decision-making
 - Cross-platform support (Windows, macOS, Linux, Android, iOS)
@@ -34,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Actionable guidance based on operational state
 
 **Desktop App (Tauri)**
+
 - React 18 + TypeScript + Vite frontend
 - Rust backend with Tauri 1.5
 - Real SQLite storage via better-sqlite3
@@ -43,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Window size: 1280×800 (min: 1024×600)
 
 **Mobile App (Expo)**
+
 - React Native with Expo ~50.0
 - File-based routing (Expo Router)
 - 6 main screens matching desktop functionality
@@ -51,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Mock storage for development
 
 **Shared Packages**
+
 - `@assistente/core`: Domain entities + rules engine (11 tests passing)
 - `@assistente/storage`: SQLite abstraction + 7 repositories
 - `@assistente/ui`: Component library (placeholder)
@@ -58,12 +63,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `@assistente/shared`: Utility functions
 
 **Rules Engine**
+
 - `computeState()`: Calculates CRITICAL/ATTACK/CAUTION state
 - `generateAlerts()`: Context-aware alert generation
 - `computeActionMother()`: Prioritizes most important action
 - `computeGuidance()`: Provides DO/HOLD/CUT advice
 
 **Storage Layer**
+
 - SQLite schema v1 with 7 tables
 - Migration system with version tracking
 - 2 adapters: BetterSqlite (desktop) + ExpoSqlite (mobile)
@@ -71,6 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Foreign key constraints and indexes
 
 **Developer Experience**
+
 - pnpm monorepo with workspaces
 - Strict TypeScript configuration
 - ESLint + Prettier code formatting
@@ -78,6 +86,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive documentation (2,500+ lines)
 
 **Documentation**
+
 - README.md: Complete project overview
 - ASSETS_GUIDE.md: Icon generation instructions
 - STORE_SUBMISSION_GUIDE.md: Step-by-step for 3 app stores
@@ -86,6 +95,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PROJECT_COMPLETE.md: Completion summary
 
 **Build Configuration**
+
 - EAS config for mobile builds (3 profiles)
 - Tauri bundle config for desktop
 - App permissions configured
@@ -93,6 +103,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bundle identifiers: com.assistente.operacional
 
 #### Technical Details
+
 - **Languages**: TypeScript 5.3.3, Rust 1.75+
 - **Frameworks**: React 18.2.0, Tauri 1.5, Expo ~50.0
 - **State Management**: Zustand 4.4.7
@@ -101,6 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Tooling**: pnpm 8.x, Vite 5, esbuild
 
 #### Known Limitations
+
 - Icons are placeholders (requires replacement before store submission)
 - No cloud sync (by design for privacy)
 - Dark theme only
@@ -113,11 +125,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Version History
 
 ### Version Numbering
+
 - **Major**: Breaking changes or major feature additions
 - **Minor**: New features, backwards-compatible
 - **Patch**: Bug fixes, minor improvements
 
 ### Upcoming Versions
+
 - **1.1.0**: Decision logging + keyboard shortcuts
 - **1.2.0**: Push notifications + biometric auth
 - **2.0.0**: Optional cloud sync (self-hosted)

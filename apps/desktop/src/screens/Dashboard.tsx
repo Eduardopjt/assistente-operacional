@@ -55,7 +55,10 @@ export default function DashboardScreen() {
         <div className="state-header">
           <div
             className="state-badge"
-            style={{ backgroundColor: STATE_COLORS[todayState] + '20', color: STATE_COLORS[todayState] }}
+            style={{
+              backgroundColor: STATE_COLORS[todayState] + '20',
+              color: STATE_COLORS[todayState],
+            }}
           >
             {STATE_LABELS[todayState]}
           </div>
@@ -85,7 +88,9 @@ export default function DashboardScreen() {
                   </div>
                   <div className="pattern-item">
                     <span className="pattern-label">Energia streak:</span>
-                    <span className="pattern-value">{insights.energy_pattern.current_streak} dias</span>
+                    <span className="pattern-value">
+                      {insights.energy_pattern.current_streak} dias
+                    </span>
                   </div>
                   {insights.top_priority_project && (
                     <div className="pattern-item">
@@ -114,9 +119,9 @@ export default function DashboardScreen() {
               <h3>🧭 Orientação</h3>
               <div
                 className="mode-badge"
-                style={{ 
-                  backgroundColor: MODE_COLORS[guidance.mode as keyof typeof MODE_COLORS] + '20', 
-                  color: MODE_COLORS[guidance.mode as keyof typeof MODE_COLORS] 
+                style={{
+                  backgroundColor: MODE_COLORS[guidance.mode as keyof typeof MODE_COLORS] + '20',
+                  color: MODE_COLORS[guidance.mode as keyof typeof MODE_COLORS],
                 }}
               >
                 {guidance.mode}

@@ -22,7 +22,7 @@ export default function HistoryScreen() {
   useEffect(() => {
     if (currentUser) {
       setCheckins(checkinRepo.getRecent(currentUser.id, 30));
-      setDecisions([]);  // TODO: Implement decision tracking
+      setDecisions([]); // TODO: Implement decision tracking
       setAlerts(alertRepo.getUnresolved(currentUser.id));
     }
   }, [currentUser]);

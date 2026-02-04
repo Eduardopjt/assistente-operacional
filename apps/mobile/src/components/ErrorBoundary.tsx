@@ -29,7 +29,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
     const errorStack = errorInfo.componentStack || '';
-    
+
     logger.error('React component error caught', error, {
       component: 'ErrorBoundary',
       componentStack: errorStack,
@@ -63,11 +63,7 @@ ${errorInfo || 'No component stack'}
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
-        return this.props.fallback(
-          this.state.error!,
-          this.state.errorInfo || '',
-          this.handleRetry
-        );
+        return this.props.fallback(this.state.error!, this.state.errorInfo || '', this.handleRetry);
       }
 
       // Default calm fallback UI
@@ -76,7 +72,8 @@ ${errorInfo || 'No component stack'}
           <View style={styles.content}>
             <Text style={styles.title}>Algo inesperado aconteceu</Text>
             <Text style={styles.message}>
-              O aplicativo encontrou um erro. Você pode tentar novamente ou copiar os detalhes para suporte.
+              O aplicativo encontrou um erro. Você pode tentar novamente ou copiar os detalhes para
+              suporte.
             </Text>
 
             <TouchableOpacity style={styles.primaryButton} onPress={this.handleRetry}>

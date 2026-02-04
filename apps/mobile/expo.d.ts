@@ -1,6 +1,6 @@
 declare module 'expo-status-bar' {
   import { ComponentType } from 'react';
-  
+
   export interface StatusBarProps {
     style?: 'auto' | 'inverted' | 'light' | 'dark';
     animated?: boolean;
@@ -8,7 +8,7 @@ declare module 'expo-status-bar' {
     translucent?: boolean;
     backgroundColor?: string;
   }
-  
+
   export const StatusBar: ComponentType<StatusBarProps>;
 }
 
@@ -19,10 +19,10 @@ declare module 'expo-router' {
     back: () => void;
     canGoBack: () => boolean;
   };
-  
+
   export function usePathname(): string;
   export function useSearchParams(): Record<string, string>;
-  
+
   export const Stack: any;
   export const Tabs: any;
   export const Drawer: any;
@@ -32,10 +32,18 @@ declare module 'expo-router' {
 
 declare module 'expo-sqlite' {
   export interface Database {
-    transaction(callback: (tx: Transaction) => void, error?: (error: Error) => void, success?: () => void): void;
-    exec(queries: { sql: string; args: any[] }[], readOnly: boolean, callback: (error: Error | null, result: any) => void): void;
+    transaction(
+      callback: (tx: Transaction) => void,
+      error?: (error: Error) => void,
+      success?: () => void
+    ): void;
+    exec(
+      queries: { sql: string; args: any[] }[],
+      readOnly: boolean,
+      callback: (error: Error | null, result: any) => void
+    ): void;
   }
-  
+
   export interface Transaction {
     executeSql(
       sqlStatement: string,
@@ -44,7 +52,7 @@ declare module 'expo-sqlite' {
       errorCallback?: (transaction: Transaction, error: Error) => boolean
     ): void;
   }
-  
+
   export interface ResultSet {
     insertId: number;
     rowsAffected: number;
@@ -54,7 +62,7 @@ declare module 'expo-sqlite' {
       _array: any[];
     };
   }
-  
+
   export function openDatabase(
     name: string,
     version?: string,

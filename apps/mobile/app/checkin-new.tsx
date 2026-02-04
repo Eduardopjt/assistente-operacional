@@ -70,9 +70,7 @@ export default function CheckinScreen() {
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>Check-in Diário</Text>
-          <Text style={styles.subtitle}>
-            Responda com clareza para orientações precisas
-          </Text>
+          <Text style={styles.subtitle}>Responda com clareza para orientações precisas</Text>
         </View>
 
         {/* Smart Suggestion */}
@@ -87,10 +85,7 @@ export default function CheckinScreen() {
               </View>
             </View>
             <Text style={styles.suggestionReason}>{suggestion.reasoning}</Text>
-            <TouchableOpacity 
-              style={styles.useSuggestionButton}
-              onPress={handleUseSuggestion}
-            >
+            <TouchableOpacity style={styles.useSuggestionButton} onPress={handleUseSuggestion}>
               <Text style={styles.useSuggestionText}>Usar Sugestão</Text>
             </TouchableOpacity>
           </ExecutiveCard>
@@ -103,11 +98,7 @@ export default function CheckinScreen() {
             <Text style={styles.dimensionLabel}>SITUAÇÃO FINANCEIRA</Text>
             <Text style={styles.dimensionHint}>Como está seu caixa hoje?</Text>
             <View style={styles.controlWrapper}>
-              <SegmentedControl
-                options={CAIXA_OPTIONS}
-                value={caixa}
-                onChange={setCaixa}
-              />
+              <SegmentedControl options={CAIXA_OPTIONS} value={caixa} onChange={setCaixa} />
             </View>
           </ExecutiveCard>
 
@@ -116,11 +107,7 @@ export default function CheckinScreen() {
             <Text style={styles.dimensionLabel}>ENERGIA</Text>
             <Text style={styles.dimensionHint}>Qual seu nível de energia?</Text>
             <View style={styles.controlWrapper}>
-              <SegmentedControl
-                options={ENERGIA_OPTIONS}
-                value={energia}
-                onChange={setEnergia}
-              />
+              <SegmentedControl options={ENERGIA_OPTIONS} value={energia} onChange={setEnergia} />
             </View>
           </ExecutiveCard>
 
@@ -129,22 +116,13 @@ export default function CheckinScreen() {
             <Text style={styles.dimensionLabel}>PRESSÃO</Text>
             <Text style={styles.dimensionHint}>Nível de urgência/pressão?</Text>
             <View style={styles.controlWrapper}>
-              <SegmentedControl
-                options={PRESSAO_OPTIONS}
-                value={pressao}
-                onChange={setPressao}
-              />
+              <SegmentedControl options={PRESSAO_OPTIONS} value={pressao} onChange={setPressao} />
             </View>
           </ExecutiveCard>
         </View>
 
         {/* Generate Button */}
-        <PrimaryActionButton
-          onPress={handleGenerate}
-          disabled={!canGenerate}
-          fullWidth
-          size="lg"
-        >
+        <PrimaryActionButton onPress={handleGenerate} disabled={!canGenerate} fullWidth size="lg">
           Gerar Orientação
         </PrimaryActionButton>
 

@@ -67,21 +67,15 @@ function calculateTrends(
     .filter((e) => e.type === 'saida')
     .reduce((sum, e) => sum + e.value, 0);
 
-  const incomeGrowth =
-    firstIncome > 0 ? (secondIncome - firstIncome) / firstIncome : 0;
-  const expenseGrowth =
-    firstExpenses > 0 ? (secondExpenses - firstExpenses) / firstExpenses : 0;
+  const incomeGrowth = firstIncome > 0 ? (secondIncome - firstIncome) / firstIncome : 0;
+  const expenseGrowth = firstExpenses > 0 ? (secondExpenses - firstExpenses) / firstExpenses : 0;
 
   // Calculate monthly averages
   const monthlyIncome =
-    recentEntries
-      .filter((e) => e.type === 'entrada')
-      .reduce((sum, e) => sum + e.value, 0) /
+    recentEntries.filter((e) => e.type === 'entrada').reduce((sum, e) => sum + e.value, 0) /
     (lookbackDays / 30);
   const monthlyExpenses =
-    recentEntries
-      .filter((e) => e.type === 'saida')
-      .reduce((sum, e) => sum + e.value, 0) /
+    recentEntries.filter((e) => e.type === 'saida').reduce((sum, e) => sum + e.value, 0) /
     (lookbackDays / 30);
 
   return {
@@ -109,14 +103,12 @@ export function projectFinances(
   const optimisticExpenseGrowth = trends.expenseGrowth * 0.9;
 
   const optimisticIncome = trends.avgMonthlyIncome * months * (1 + optimisticIncomeGrowth);
-  const optimisticExpenses =
-    trends.avgMonthlyExpenses * months * (1 + optimisticExpenseGrowth);
+  const optimisticExpenses = trends.avgMonthlyExpenses * months * (1 + optimisticExpenseGrowth);
   const optimisticBalance = currentBalance + optimisticIncome - optimisticExpenses;
 
   // Realistic scenario (current trend)
   const realisticIncome = trends.avgMonthlyIncome * months * (1 + trends.incomeGrowth);
-  const realisticExpenses =
-    trends.avgMonthlyExpenses * months * (1 + trends.expenseGrowth);
+  const realisticExpenses = trends.avgMonthlyExpenses * months * (1 + trends.expenseGrowth);
   const realisticBalance = currentBalance + realisticIncome - realisticExpenses;
 
   // Pessimistic scenario (10% worse than trend)
@@ -124,8 +116,7 @@ export function projectFinances(
   const pessimisticExpenseGrowth = trends.expenseGrowth * 1.1;
 
   const pessimisticIncome = trends.avgMonthlyIncome * months * (1 + pessimisticIncomeGrowth);
-  const pessimisticExpenses =
-    trends.avgMonthlyExpenses * months * (1 + pessimisticExpenseGrowth);
+  const pessimisticExpenses = trends.avgMonthlyExpenses * months * (1 + pessimisticExpenseGrowth);
   const pessimisticBalance = currentBalance + pessimisticIncome - pessimisticExpenses;
 
   // Calculate runways
@@ -152,7 +143,7 @@ export function projectFinances(
   }
 
   if (avgMonthlyBurn > trends.avgMonthlyIncome) {
-    warnings.push(`Queima de caixa mensal: ${((avgMonthlyBurn / 100).toFixed(2))}`);
+    warnings.push(`Queima de caixa mensal: ${(avgMonthlyBurn / 100).toFixed(2)}`);
   }
 
   // Confidence based on data quality

@@ -43,3 +43,6 @@ apps/desktop/src-tauri/target/
 # SQLite
 *.db
 *.db-journal
+
+# Local Netlify folder
+.netlify

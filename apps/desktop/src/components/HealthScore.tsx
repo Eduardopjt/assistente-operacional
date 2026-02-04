@@ -27,14 +27,7 @@ export default function HealthScore({ score }: HealthScoreProps) {
     <div className="health-score">
       <div className="score-circle">
         <svg width="120" height="120">
-          <circle
-            cx="60"
-            cy="60"
-            r="45"
-            fill="none"
-            stroke="#e5e7eb"
-            strokeWidth="8"
-          />
+          <circle cx="60" cy="60" r="45" fill="none" stroke="#e5e7eb" strokeWidth="8" />
           <circle
             cx="60"
             cy="60"
@@ -50,7 +43,9 @@ export default function HealthScore({ score }: HealthScoreProps) {
           />
         </svg>
         <div className="score-value">
-          <span className="score-number" style={{ color }}>{score}</span>
+          <span className="score-number" style={{ color }}>
+            {score}
+          </span>
           <span className="score-max">/100</span>
         </div>
       </div>

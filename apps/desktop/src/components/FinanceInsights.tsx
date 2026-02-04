@@ -30,23 +30,32 @@ export default function FinanceInsights({ summary }: FinanceInsightsProps) {
       <div className="insight-row">
         <div className="insight-card">
           <div className="insight-label">Saldo</div>
-          <div className="insight-value" style={{ color: summary.balance >= 0 ? '#22C55E' : '#EF4444' }}>
+          <div
+            className="insight-value"
+            style={{ color: summary.balance >= 0 ? '#22C55E' : '#EF4444' }}
+          >
             {formatCurrency(summary.balance)}
           </div>
         </div>
 
         <div className="insight-card">
           <div className="insight-label">Forecast</div>
-          <div className="insight-value">
-            {summary.forecast_days} dias
-          </div>
+          <div className="insight-value">{summary.forecast_days} dias</div>
         </div>
 
         <div className="insight-card">
           <div className="insight-label">Health Score</div>
-          <div className="insight-value" style={{ 
-            color: summary.health_score >= 70 ? '#22C55E' : summary.health_score >= 40 ? '#FACC15' : '#EF4444' 
-          }}>
+          <div
+            className="insight-value"
+            style={{
+              color:
+                summary.health_score >= 70
+                  ? '#22C55E'
+                  : summary.health_score >= 40
+                    ? '#FACC15'
+                    : '#EF4444',
+            }}
+          >
             {summary.health_score}/100
           </div>
         </div>
@@ -54,21 +63,19 @@ export default function FinanceInsights({ summary }: FinanceInsightsProps) {
 
       <div className="insight-row">
         <div className="insight-card full-width">
-          <div className="insight-label">
-            Tendência {getTrendIcon(summary.spending_trend)}
-          </div>
+          <div className="insight-label">Tendência {getTrendIcon(summary.spending_trend)}</div>
           <div className="insight-value" style={{ color: getTrendColor(summary.spending_trend) }}>
-            {summary.spending_trend === 'increasing' ? 'Gastos Aumentando' :
-             summary.spending_trend === 'decreasing' ? 'Gastos Diminuindo' :
-             'Gastos Estáveis'}
+            {summary.spending_trend === 'increasing'
+              ? 'Gastos Aumentando'
+              : summary.spending_trend === 'decreasing'
+                ? 'Gastos Diminuindo'
+                : 'Gastos Estáveis'}
           </div>
         </div>
       </div>
 
       {summary.anomaly_detected && (
-        <div className="anomaly-warning">
-          🔍 Padrão incomum detectado nos gastos recentes
-        </div>
+        <div className="anomaly-warning">🔍 Padrão incomum detectado nos gastos recentes</div>
       )}
 
       <div className="forecasts">

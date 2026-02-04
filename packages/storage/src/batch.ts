@@ -11,7 +11,7 @@ export interface BatchOperation {
 
 export class BatchExecutor {
   private operations: BatchOperation[] = [];
-  
+
   constructor(private db: Database) {}
 
   /**
@@ -142,8 +142,8 @@ export function bulkUpdate<T extends { id: string }>(
   let updated = 0;
 
   // Auto-detect fields from first record if not provided
-  const fields = updateFields || (Object.keys(records[0]).filter(k => k !== 'id') as (keyof T)[]);
-  
+  const fields = updateFields || (Object.keys(records[0]).filter((k) => k !== 'id') as (keyof T)[]);
+
   const setClause = fields.map((field) => `${String(field)} = ?`).join(', ');
   const sql = `UPDATE ${table} SET ${setClause} WHERE id = ?`;
 

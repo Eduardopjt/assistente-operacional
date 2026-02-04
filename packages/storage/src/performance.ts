@@ -27,7 +27,7 @@ export class PerformanceMonitor {
     if (!this.enabled) return () => {};
 
     const startTime = performance.now();
-    
+
     return () => {
       const duration = performance.now() - startTime;
       this.recordMetric(query, duration);
@@ -142,9 +142,7 @@ export class PerformanceMonitor {
    * Log slow queries to console
    */
   logSlowQueries(thresholdMs: number = 100): void {
-    const slow = Array.from(this.metrics.values()).filter(
-      (m) => m.avgTime > thresholdMs
-    );
+    const slow = Array.from(this.metrics.values()).filter((m) => m.avgTime > thresholdMs);
 
     if (slow.length === 0) {
       console.log('✅ No slow queries detected');

@@ -7,6 +7,7 @@ This document outlines the steps to prepare and publish the app to app stores.
 ### iOS (Apple App Store)
 
 **Prerequisites:**
+
 - Apple Developer Account ($99/year)
 - macOS with Xcode installed
 - Certificates and provisioning profiles set up
@@ -25,6 +26,7 @@ eas submit --platform ios
 ```
 
 **Checklist:**
+
 - [ ] App icons (1024x1024 PNG for App Store)
 - [ ] Screenshots (required sizes for all devices)
 - [ ] Privacy policy URL
@@ -35,6 +37,7 @@ eas submit --platform ios
 ### Android (Google Play)
 
 **Prerequisites:**
+
 - Google Play Developer Account ($25 one-time)
 - Keystore for signing
 
@@ -51,6 +54,7 @@ eas submit --platform android
 ```
 
 **Checklist:**
+
 - [ ] App icons and feature graphic
 - [ ] Screenshots (phone, tablet, 7-inch, 10-inch)
 - [ ] Privacy policy URL
@@ -65,6 +69,7 @@ eas submit --platform android
 ### Windows (Microsoft Store)
 
 **Prerequisites:**
+
 - Microsoft Partner Center account (free)
 - App identity reserved in Partner Center
 
@@ -84,6 +89,7 @@ pnpm tauri:build --target x86_64-pc-windows-msvc
 ```
 
 **Checklist:**
+
 - [ ] App manifest with proper capabilities
 - [ ] Age rating and content declarations
 - [ ] Store assets (icons, screenshots, hero image)
@@ -93,6 +99,7 @@ pnpm tauri:build --target x86_64-pc-windows-msvc
 ### macOS (Not required per spec, but possible)
 
 **Prerequisites:**
+
 - Apple Developer Account
 - Code signing certificate
 
@@ -114,12 +121,14 @@ xcrun notarytool submit ...
 ## Pre-Submission Checklist (All Platforms)
 
 ### Legal & Privacy
+
 - [ ] Privacy policy hosted and linked
 - [ ] Terms of service (if needed)
 - [ ] Data collection disclosure
 - [ ] GDPR/LGPD compliance if collecting user data
 
 ### Content
+
 - [ ] App icons in all required sizes
 - [ ] Screenshots for all device types
 - [ ] App description (short & full)
@@ -127,6 +136,7 @@ xcrun notarytool submit ...
 - [ ] Release notes
 
 ### Technical
+
 - [ ] All features functional offline
 - [ ] No hardcoded API keys or secrets
 - [ ] Crash reporting implemented (if desired)
@@ -135,6 +145,7 @@ xcrun notarytool submit ...
 - [ ] Performance profiling complete
 
 ### Testing
+
 - [ ] Tested on minimum supported OS versions
 - [ ] Tested on various screen sizes
 - [ ] Accessibility features verified
@@ -147,12 +158,14 @@ xcrun notarytool submit ...
 Follow semantic versioning: `MAJOR.MINOR.PATCH`
 
 **Example:**
+
 - `1.0.0` — Initial release (CP6)
 - `1.0.1` — Bug fix
 - `1.1.0` — New feature (e.g., sync capability)
 - `2.0.0` — Breaking change (e.g., new storage format)
 
 Update in:
+
 - `package.json` (root and apps)
 - `apps/mobile/app.json` → `expo.version`
 - `apps/desktop/src-tauri/tauri.conf.json` → `package.version`

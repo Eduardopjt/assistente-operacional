@@ -3,6 +3,7 @@
 ## What Was Done
 
 ### ✅ Monorepo Structure
+
 ```
 assistente/
 ├── apps/
@@ -22,6 +23,7 @@ assistente/
 ```
 
 ### ✅ Core Package (`packages/core`)
+
 - **7 Domain Entities**: User, DailyCheckin, FinancialEntry, Project, Task, Decision, Alert
 - **Rules Engine**: Complete with 4 core functions:
   - `computeState()` — CRITICAL / CAUTION / ATTACK
@@ -32,22 +34,26 @@ assistente/
 - **Pure TypeScript**: No UI dependencies, fully testable
 
 ### ✅ UI Package (`packages/ui`)
+
 - **Design Tokens**: Colors, typography, spacing, borders
 - **Visual Identity**: Dark theme (#0F1115), anti-anxiety, professional
 - **Components**: Card, Badge, Button (React, reusable)
 - **Type-safe**: All tokens exported as TypeScript types
 
 ### ✅ Storage Package (`packages/storage`)
+
 - **Database Abstraction**: Platform-agnostic interface
 - **Repository Pattern**: UserRepository skeleton
 - **Ready for CP3**: Full SQLite implementation coming
 
 ### ✅ Shared Package (`packages/shared`)
+
 - **Utilities**: Date formatting, currency (BRL cents), ID generation
 - **Constants**: App name, version, storage keys, categories, limits
 - **Localized**: Brazilian Portuguese (pt-BR)
 
 ### ✅ Mobile App (`apps/mobile`)
+
 - **Expo + React Native**: Latest stable versions
 - **Expo Router**: File-based navigation ready
 - **Hello Screen**: Verifies core package integration
@@ -55,12 +61,14 @@ assistente/
 - **Store Ready**: `app.json` configured for iOS/Android
 
 ### ✅ Desktop App (`apps/desktop`)
+
 - **Tauri + Vite + React**: Rust backend + modern web frontend
 - **Platform Detection**: Verifies Tauri API works
 - **Hello Screen**: Verifies core package integration
 - **Production Config**: Windows build settings ready
 
 ### ✅ Tooling & DX
+
 - **pnpm Workspaces**: Fast, efficient monorepo management
 - **TypeScript**: Strict mode, all packages typed
 - **ESLint + Prettier**: Consistent code style
@@ -71,6 +79,7 @@ assistente/
 ## Files Created/Changed (78 files)
 
 ### Root (8 files)
+
 - `package.json`
 - `pnpm-workspace.yaml`
 - `.npmrc`
@@ -81,10 +90,12 @@ assistente/
 - `README.md`
 
 ### Documentation (2 files)
+
 - `SETUP.md` — Installation and dev instructions
 - `STORE_READY.md` — App store submission guide
 
 ### `packages/core` (14 files)
+
 - `package.json`, `tsconfig.json`, `jest.config.js`
 - `src/index.ts`
 - `src/entities/`: user.ts, daily-checkin.ts, financial-entry.ts, project.ts, task.ts, decision.ts, alert.ts
@@ -92,29 +103,34 @@ assistente/
 - `src/rules/__tests__/engine.test.ts`
 
 ### `packages/ui` (7 files)
+
 - `package.json`, `tsconfig.json`
 - `src/index.ts`
 - `src/tokens.ts`
 - `src/components/`: Card.tsx, Badge.tsx, Button.tsx
 
 ### `packages/storage` (5 files)
+
 - `package.json`, `tsconfig.json`
 - `src/index.ts`
 - `src/database.ts`
 - `src/repositories/user-repository.ts`
 
 ### `packages/shared` (7 files)
+
 - `package.json`, `tsconfig.json`
 - `src/index.ts`
 - `src/utils/`: date.ts, currency.ts, id.ts
 - `src/constants.ts`
 
 ### `apps/mobile` (11 files)
+
 - `package.json`, `app.json`, `tsconfig.json`, `babel.config.js`, `.eslintrc.js`
 - `app/_layout.tsx`, `app/index.tsx`
 - `assets/`: icon.png.txt, splash.png.txt, adaptive-icon.png.txt, favicon.png.txt
 
 ### `apps/desktop` (14 files)
+
 - `package.json`, `tsconfig.json`, `tsconfig.node.json`, `vite.config.ts`
 - `index.html`
 - `src/main.tsx`, `src/App.tsx`, `src/App.css`
@@ -127,24 +143,28 @@ assistente/
 ## How to Run
 
 ### Install Dependencies
+
 ```bash
 cd c:\src\assistente
 pnpm install
 ```
 
 ### Run Mobile App
+
 ```bash
 pnpm dev:mobile
 # Then: Scan QR code with Expo Go app
 ```
 
 ### Run Desktop App
+
 ```bash
 pnpm dev:desktop
 # First run will compile Rust (takes ~2 min)
 ```
 
 ### Run Tests
+
 ```bash
 pnpm test
 # Tests the rules engine in packages/core
@@ -172,18 +192,21 @@ pnpm test
 ## What's Next?
 
 ### CP2 — Core Domain + Rules Engine (Extended)
+
 - Add more sophisticated rules
 - Implement use-case layer
 - Add integration tests
 - Expand unit test coverage
 
 ### CP3 — SQLite Storage Layer
+
 - Create database schema + migrations
 - Implement all repositories
 - Add offline-first sync strategy
 - Platform-specific adapters (expo-sqlite, better-sqlite3)
 
 ### CP4 — Mobile UI Implementation
+
 - Daily check-in screen
 - Today dashboard with state + action-mother
 - Finance screen with entries/summary
@@ -191,11 +214,13 @@ pnpm test
 - History screen
 
 ### CP5 — Desktop UI Implementation
+
 - Same screens, optimized for desktop layout
 - Keyboard shortcuts
 - Window state persistence
 
 ### CP6 — Store Builds
+
 - Generate icons
 - Configure signing
 - Submit to stores

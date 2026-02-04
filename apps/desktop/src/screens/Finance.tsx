@@ -122,7 +122,9 @@ export default function FinanceScreen() {
                     {new Date(entry.date).toLocaleDateString('pt-BR')}
                   </span>
                 </div>
-                <span className={`entry-value ${entry.type === 'entrada' ? 'positive' : 'negative'}`}>
+                <span
+                  className={`entry-value ${entry.type === 'entrada' ? 'positive' : 'negative'}`}
+                >
                   {entry.type === 'entrada' ? '+' : '-'} {formatCurrency(entry.value)}
                 </span>
               </div>

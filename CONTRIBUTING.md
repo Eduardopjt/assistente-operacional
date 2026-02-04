@@ -52,22 +52,26 @@ We are committed to providing a welcoming and inclusive environment for all cont
 ### Setup
 
 1. **Fork the repository**
+
    ```bash
    # Click "Fork" on GitHub
    ```
 
 2. **Clone your fork**
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/assistente.git
    cd assistente
    ```
 
 3. **Add upstream remote**
+
    ```bash
    git remote add upstream https://github.com/assistente/assistente.git
    ```
 
 4. **Install dependencies**
+
    ```bash
    pnpm install
    ```
@@ -91,6 +95,7 @@ git checkout -b feature/your-feature-name
 ```
 
 **Branch naming conventions**:
+
 - `feature/` - New features (e.g., `feature/decision-logging`)
 - `fix/` - Bug fixes (e.g., `fix/checkin-date-bug`)
 - `docs/` - Documentation only (e.g., `docs/update-readme`)
@@ -137,6 +142,7 @@ git push origin feature/your-feature-name
   - `UPPER_CASE` for constants
 
 **Example**:
+
 ```typescript
 // Good
 interface User {
@@ -151,7 +157,8 @@ function getUser(id: string): User | null {
 const MAX_RETRIES = 3;
 
 // Bad
-function getUser(id) { // Missing types
+function getUser(id) {
+  // Missing types
   return id; // any
 }
 ```
@@ -163,6 +170,7 @@ function getUser(id) { // Missing types
 - **Component files**: One component per file (except small utility components)
 
 **Example**:
+
 ```typescript
 // Good
 interface ButtonProps {
@@ -223,6 +231,7 @@ apps/desktop/src/
 ```
 
 **Types**:
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation only
@@ -232,6 +241,7 @@ apps/desktop/src/
 - `chore`: Maintenance (deps, build, etc.)
 
 **Scopes** (optional):
+
 - `core`: Core package
 - `storage`: Storage package
 - `mobile`: Mobile app
@@ -273,12 +283,14 @@ common setup issues.
 ### Before Submitting
 
 1. **Sync with upstream**
+
    ```bash
    git fetch upstream
    git rebase upstream/main
    ```
 
 2. **Run all checks**
+
    ```bash
    pnpm typecheck
    pnpm lint
@@ -297,21 +309,25 @@ When creating a PR, include:
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## Testing
+
 - [ ] Unit tests pass
 - [ ] Type check passes
 - [ ] Manually tested on desktop
 - [ ] Manually tested on mobile
 
 ## Checklist
+
 - [ ] Code follows style guidelines
 - [ ] Self-reviewed code
 - [ ] Commented complex logic
@@ -320,6 +336,7 @@ Brief description of changes
 - [ ] Added tests for new features
 
 ## Related Issues
+
 Closes #123
 ```
 
@@ -353,6 +370,7 @@ pnpm test -- --coverage
 ### Writing Tests
 
 **Unit Tests** (packages/core, packages/storage):
+
 ```typescript
 // packages/core/src/rules/__tests__/engine.test.ts
 describe('computeState', () => {
@@ -365,6 +383,7 @@ describe('computeState', () => {
 ```
 
 **Test Coverage Goals**:
+
 - Core logic: 80%+
 - Repositories: 70%+
 - UI components: 50%+
@@ -380,13 +399,14 @@ describe('computeState', () => {
 - Explain "why", not "what"
 
 **Example**:
+
 ```typescript
 /**
  * Computes operational state from daily check-in data.
- * 
+ *
  * @param checkin - Daily check-in with caixa, energia, pressão
  * @returns Operational state (CRITICAL, ATTACK, or CAUTION)
- * 
+ *
  * @remarks
  * CRITICAL: Requires immediate action (financial or energy issues)
  * ATTACK: Optimal conditions for high-impact work
@@ -404,6 +424,7 @@ export function computeState(checkin: DailyCheckin): EstadoCalculado {
 ### Documentation Updates
 
 When adding features:
+
 1. Update relevant section in README.md
 2. Add entry to CHANGELOG.md
 3. Update API docs if needed
@@ -416,6 +437,7 @@ When adding features:
 ### Debugging
 
 **Desktop**:
+
 ```bash
 cd apps/desktop
 pnpm tauri:dev
@@ -423,6 +445,7 @@ pnpm tauri:dev
 ```
 
 **Mobile**:
+
 ```bash
 cd apps/mobile
 pnpm start

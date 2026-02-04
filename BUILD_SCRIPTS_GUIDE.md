@@ -3,6 +3,7 @@
 ## Mobile (Expo/React Native)
 
 ### Development
+
 ```bash
 cd apps/mobile
 
@@ -28,6 +29,7 @@ pnpm lint
 ### Production Builds with EAS
 
 **First Time Setup**:
+
 ```bash
 # Install EAS CLI globally
 npm install -g eas-cli
@@ -41,6 +43,7 @@ eas build:configure
 ```
 
 **Build Commands**:
+
 ```bash
 # iOS build (requires Apple Developer account)
 eas build --platform ios --profile production
@@ -56,6 +59,7 @@ eas build --platform android --profile preview
 ```
 
 **Submit to Stores**:
+
 ```bash
 # Submit iOS to App Store
 eas submit --platform ios --profile production
@@ -69,6 +73,7 @@ eas submit --platform android --profile production
 ## Desktop (Tauri)
 
 ### Development
+
 ```bash
 cd apps/desktop
 
@@ -88,6 +93,7 @@ pnpm build
 ### Production Builds
 
 **Windows**:
+
 ```bash
 cd apps/desktop
 pnpm tauri build
@@ -98,6 +104,7 @@ pnpm tauri build
 ```
 
 **macOS** (on macOS only):
+
 ```bash
 cd apps/desktop
 pnpm tauri build
@@ -108,6 +115,7 @@ pnpm tauri build
 ```
 
 **Linux**:
+
 ```bash
 cd apps/desktop
 pnpm tauri build
@@ -122,6 +130,7 @@ pnpm tauri build
 ## Root Level Commands
 
 ### Development
+
 ```bash
 # Start mobile dev
 pnpm dev:mobile
@@ -143,6 +152,7 @@ pnpm format
 ```
 
 ### Package-Specific Commands
+
 ```bash
 # Run command in specific package
 pnpm --filter @assistente/core test
@@ -156,6 +166,7 @@ pnpm --filter desktop tauri:dev
 ## Testing
 
 ### Unit Tests (Jest)
+
 ```bash
 # Core package tests
 cd packages/core
@@ -173,6 +184,7 @@ pnpm test -- --watch
 ```
 
 ### E2E Tests (Future)
+
 ```bash
 # Detox for mobile (not yet set up)
 cd apps/mobile
@@ -189,6 +201,7 @@ pnpm e2e
 ## CI/CD
 
 ### GitHub Actions Example
+
 ```yaml
 name: Build and Test
 
@@ -248,12 +261,14 @@ jobs:
 ### Mobile Issues
 
 **Metro bundler cache issues**:
+
 ```bash
 cd apps/mobile
 pnpm start -- --reset-cache
 ```
 
 **iOS build fails**:
+
 ```bash
 cd apps/mobile/ios
 pod install
@@ -262,6 +277,7 @@ pnpm ios
 ```
 
 **Android build fails**:
+
 ```bash
 cd apps/mobile/android
 ./gradlew clean
@@ -272,18 +288,21 @@ pnpm android
 ### Desktop Issues
 
 **Rust not found**:
+
 ```bash
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 **better-sqlite3 native binding issues**:
+
 ```bash
 cd packages/storage
 pnpm rebuild better-sqlite3
 ```
 
 **Vite port already in use**:
+
 ```bash
 # Change port in vite.config.ts
 server: { port: 5174 }
@@ -294,6 +313,7 @@ server: { port: 5174 }
 ## Performance Optimization
 
 ### Mobile Bundle Size
+
 ```bash
 cd apps/mobile
 
@@ -305,6 +325,7 @@ npx expo install --check
 ```
 
 ### Desktop Binary Size
+
 ```bash
 cd apps/desktop
 
@@ -320,6 +341,7 @@ du -h src-tauri/target/release/Assistente\ Operacional.exe
 ## Version Management
 
 ### Bump Version
+
 ```bash
 # Update version in:
 # 1. apps/mobile/app.json (version + buildNumber/versionCode)
@@ -338,6 +360,7 @@ git push origin main --tags
 ## Clean Rebuild
 
 ### Full Clean
+
 ```bash
 # Remove all node_modules and build artifacts
 rm -rf node_modules apps/*/node_modules packages/*/node_modules
@@ -347,6 +370,7 @@ pnpm install
 ```
 
 ### Selective Clean
+
 ```bash
 # Clean mobile only
 cd apps/mobile

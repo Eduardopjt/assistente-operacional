@@ -3,7 +3,9 @@
 ## What Was Done
 
 ### ✅ Database Schema (Migration 001)
+
 Complete SQLite schema with:
+
 - **7 tables**: users, daily_checkins, financial_entries, projects, tasks, decisions, alerts
 - **Foreign key constraints**: Proper CASCADE and SET NULL rules
 - **Indexes**: Optimized for common queries (user+date, status, etc.)
@@ -11,6 +13,7 @@ Complete SQLite schema with:
 - **Schema versioning**: Migration tracking table
 
 ### ✅ Migration System
+
 - `MigrationManager` class for applying schema changes
 - Auto-detects current version
 - Embedded migrations for production builds
@@ -18,6 +21,7 @@ Complete SQLite schema with:
 - Safe, idempotent migrations
 
 ### ✅ Repository Pattern (7 Repositories)
+
 All fully implemented with CRUD operations:
 
 1. **UserRepository**: Create, get, update, list users
@@ -29,11 +33,14 @@ All fully implemented with CRUD operations:
 7. **AlertRepository**: Create, resolve, filter unresolved
 
 ### ✅ Platform Adapters
+
 - **BetterSqliteAdapter**: For desktop (Tauri, Electron, Node.js) — synchronous, production-ready
 - **ExpoSqliteAdapter**: For mobile (React Native) — documented async limitation, solution noted for CP4
 
 ### ✅ Integration Tests
+
 Complete test suite covering:
+
 - User CRUD operations
 - Check-in creation and retrieval
 - Financial entry filtering
@@ -50,9 +57,11 @@ Complete test suite covering:
 ### `packages/storage`
 
 **Migration:**
+
 - `migrations/001_initial_schema.sql` — Complete DDL
 
 **Core:**
+
 - `src/migrations.ts` — MigrationManager class
 - `src/database.ts` — Updated (existing)
 - `src/index.ts` — Updated exports
@@ -60,6 +69,7 @@ Complete test suite covering:
 - `jest.config.js` — Jest test config
 
 **Repositories (7 files):**
+
 - `src/repositories/user-repository.ts` — Full implementation
 - `src/repositories/checkin-repository.ts` — Full implementation
 - `src/repositories/finance-repository.ts` — Full implementation
@@ -69,11 +79,13 @@ Complete test suite covering:
 - `src/repositories/alert-repository.ts` — Full implementation
 
 **Adapters (3 files):**
+
 - `src/adapters/types.ts` — DatabaseAdapter interface
 - `src/adapters/better-sqlite-adapter.ts` — Desktop SQLite adapter
 - `src/adapters/expo-sqlite-adapter.ts` — Mobile adapter (with async notes)
 
 **Tests:**
+
 - `src/__tests__/integration.test.ts` — Complete integration test suite
 
 ---
@@ -93,6 +105,7 @@ alerts (id, user_id, type, message, date, resolved)
 ```
 
 **Key Features:**
+
 - All dates stored as Unix timestamps (milliseconds)
 - Currency values in cents (integers)
 - Foreign keys enforced
@@ -106,11 +119,7 @@ alerts (id, user_id, type, message, date, resolved)
 ### Desktop (Tauri/Electron)
 
 ```typescript
-import { 
-  BetterSqliteAdapter, 
-  MigrationManager,
-  UserRepositoryImpl 
-} from '@assistente/storage';
+import { BetterSqliteAdapter, MigrationManager, UserRepositoryImpl } from '@assistente/storage';
 
 // Open database
 const adapter = new BetterSqliteAdapter();
@@ -122,8 +131,8 @@ migrationManager.migrate();
 
 // Use repositories
 const userRepo = new UserRepositoryImpl(db);
-const user = userRepo.create({ 
-  settings: { theme: 'dark' } 
+const user = userRepo.create({
+  settings: { theme: 'dark' },
 });
 ```
 
@@ -132,12 +141,14 @@ const user = userRepo.create({
 The current implementation uses a synchronous interface (better for desktop). For mobile in CP4, we have two options:
 
 **Option 1** (Recommended): Make repositories async
+
 ```typescript
 // Change signature to async
 async create(user: Omit<User, 'id'>): Promise<User>
 ```
 
 **Option 2**: Use `@op-engineering/op-sqlite` (synchronous on mobile)
+
 ```bash
 expo install @op-engineering/op-sqlite
 ```
@@ -161,6 +172,7 @@ pnpm --filter @assistente/storage test
 ```
 
 **Expected output:**
+
 ```
  PASS  src/__tests__/integration.test.ts
   Storage Integration Tests
@@ -195,6 +207,7 @@ Tests:       15 passed, 15 total
 ## Repository API Reference
 
 ### UserRepository
+
 ```typescript
 create(user: Omit<User, 'id' | 'created_at'>): User
 getById(id: string): User | null
@@ -203,6 +216,7 @@ getAll(): User[]
 ```
 
 ### CheckinRepository
+
 ```typescript
 create(checkin: Omit<DailyCheckin, 'id'>): DailyCheckin
 getById(id: string): DailyCheckin | null
@@ -213,6 +227,7 @@ update(checkin: DailyCheckin): void
 ```
 
 ### FinanceRepository
+
 ```typescript
 create(entry: Omit<FinancialEntry, 'id'>): FinancialEntry
 getById(id: string): FinancialEntry | null
@@ -224,6 +239,7 @@ delete(id: string): void
 ```
 
 ### ProjectRepository
+
 ```typescript
 create(project: Omit<Project, 'id' | 'created_at' | 'updated_at'>): Project
 getById(id: string): Project | null
@@ -235,6 +251,7 @@ getStalled(userId: string, daysInactive: number): Project[]
 ```
 
 ### TaskRepository
+
 ```typescript
 create(task: Omit<Task, 'id' | 'created_at'>): Task
 getById(id: string): Task | null
@@ -247,6 +264,7 @@ markComplete(id: string): void
 ```
 
 ### DecisionRepository
+
 ```typescript
 create(decision: Omit<Decision, 'id'>): Decision
 getById(id: string): Decision | null
@@ -255,6 +273,7 @@ delete(id: string): void
 ```
 
 ### AlertRepository
+
 ```typescript
 create(alert: Omit<Alert, 'id'>): Alert
 getById(id: string): Alert | null
@@ -269,6 +288,7 @@ delete(id: string): void
 ## Performance Considerations
 
 **Indexes Created:**
+
 - `idx_checkins_user_date`: Fast check-in lookups by user and date
 - `idx_finance_user_date`: Fast financial queries
 - `idx_finance_type`: Filter by entrada/saida
@@ -278,6 +298,7 @@ delete(id: string): void
 - `idx_alerts_user_resolved`: Unresolved alerts query
 
 **Query Optimization:**
+
 - All user_id queries use indexes
 - Date-based queries sorted DESC for recent-first
 - Foreign keys indexed automatically
@@ -294,6 +315,7 @@ To add new migrations:
 3. Run `migrationManager.migrate()` on app start
 
 Example:
+
 ```sql
 -- 002_add_sync_fields.sql
 ALTER TABLE users ADD COLUMN last_sync INTEGER;
@@ -310,7 +332,6 @@ VALUES (2, strftime('%s', 'now') * 1000, 'Add sync fields');
 1. **Mobile Async**: expo-sqlite is async; repositories are sync. Solutions:
    - Make repos async (recommended)
    - Use op-sqlite for sync support
-   
 2. **No Transactions Yet**: Add transaction support for multi-step operations
 
 3. **No Soft Deletes**: All deletes are hard deletes (can add `deleted_at` column)
@@ -324,6 +345,7 @@ VALUES (2, strftime('%s', 'now') * 1000, 'Add sync fields');
 ## What's Next?
 
 ### CP4 — Mobile UI Implementation
+
 - Wire up repositories to UI
 - Implement all 5 screens:
   1. Local Login
@@ -337,11 +359,13 @@ VALUES (2, strftime('%s', 'now') * 1000, 'Add sync fields');
 - Address async repository pattern
 
 ### CP5 — Desktop UI Implementation
+
 - Same screens, desktop-optimized
 - Use BetterSqliteAdapter (already done)
 - Window state management
 
 ### CP6 — Store Builds
+
 - Generate icons
 - Configure signing
 - Submit to stores

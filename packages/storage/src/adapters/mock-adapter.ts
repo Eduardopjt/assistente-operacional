@@ -24,13 +24,16 @@ interface Database {
  * Uses in-memory Map to simulate SQLite tables
  */
 class MockStatement implements Statement {
-  constructor(private sql: string, private db: MockDatabase) {}
+  constructor(
+    private sql: string,
+    private db: MockDatabase
+  ) {}
 
   run(...params: unknown[]): RunResult {
     console.log('[MockDB] RUN:', this.sql, params);
     const sql = this.sql.toUpperCase();
     let changes = 0;
-    
+
     // Handle INSERT
     if (sql.includes('INSERT INTO')) {
       const tableMatch = this.sql.match(/INSERT INTO (\w+)/i);
@@ -38,33 +41,33 @@ class MockStatement implements Statement {
         const tableName = tableMatch[1];
         const table = this.db.getTable(tableName);
         const row: any = {};
-        
+
         // Extract column names
         const colMatch = this.sql.match(/\(([\w,\s]+)\)/i);
         if (colMatch) {
-          const columns = colMatch[1].split(',').map(c => c.trim());
+          const columns = colMatch[1].split(',').map((c) => c.trim());
           columns.forEach((col, i) => {
             row[col] = params[i];
           });
         }
-        
+
         // Check for duplicate ID (PRIMARY KEY constraint)
         if (row.id && table.has(row.id)) {
           throw new Error(`UNIQUE constraint failed: ${tableName}.id`);
         }
-        
+
         table.set(row.id || String(Date.now()), row);
         changes = 1;
       }
     }
-    
+
     // Handle UPDATE
     if (sql.includes('UPDATE')) {
       const tableMatch = this.sql.match(/UPDATE (\w+)/i);
       if (tableMatch) {
         const tableName = tableMatch[1];
         const table = this.db.getTable(tableName);
-        
+
         // Simple WHERE id = ? support
         const idMatch = this.sql.match(/WHERE id = \?/i);
         if (idMatch) {
@@ -85,17 +88,17 @@ class MockStatement implements Statement {
         }
       }
     }
-    
+
     // Handle DELETE
     if (sql.includes('DELETE FROM')) {
       const tableMatch = this.sql.match(/DELETE FROM (\w+)/i);
       if (tableMatch) {
         const tableName = tableMatch[1];
         const table = this.db.getTable(tableName);
-        
+
         // WHERE id IN (?, ?) support
         if (sql.includes('WHERE ID IN')) {
-          params.forEach(id => {
+          params.forEach((id) => {
             const key = String(id);
             if (table.has(key)) {
               table.delete(key);
@@ -112,37 +115,37 @@ class MockStatement implements Statement {
         }
       }
     }
-    
+
     return { changes, lastInsertRowid: Date.now() };
   }
 
   get(...params: unknown[]): unknown {
     console.log('[MockDB] GET:', this.sql, params);
     const sql = this.sql.toUpperCase();
-    
+
     if (sql.includes('SELECT')) {
       const tableMatch = this.sql.match(/FROM (\w+)/i);
       if (tableMatch) {
         const tableName = tableMatch[1];
         const table = this.db.getTable(tableName);
-        
+
         // WHERE id = ? support
         if (sql.includes('WHERE ID = ?')) {
           return table.get(String(params[0])) || null;
         }
-        
+
         // Return first row
         return Array.from(table.values())[0] || null;
       }
     }
-    
+
     return null;
   }
 
   all(...params: unknown[]): unknown[] {
     console.log('[MockDB] ALL:', this.sql, params);
     const sql = this.sql.toUpperCase();
-    
+
     if (sql.includes('SELECT')) {
       const tableMatch = this.sql.match(/FROM (\w+)/i);
       if (tableMatch) {
@@ -151,7 +154,7 @@ class MockStatement implements Statement {
         return Array.from(table.values());
       }
     }
-    
+
     return [];
   }
 
@@ -183,7 +186,7 @@ class MockDatabase {
   exec(sql: string): void {
     console.log('[MockDB] EXEC:', sql.substring(0, 100) + '...');
     const upper = sql.toUpperCase();
-    
+
     if (upper.includes('BEGIN TRANSACTION')) {
       this.inTransaction = true;
       // Backup all tables
@@ -192,12 +195,12 @@ class MockDatabase {
         this.transactionBackup.set(name, new Map(table));
       }
     }
-    
+
     if (upper.includes('COMMIT')) {
       this.inTransaction = false;
       this.transactionBackup = null;
     }
-    
+
     if (upper.includes('ROLLBACK')) {
       if (this.transactionBackup) {
         // Restore from backup

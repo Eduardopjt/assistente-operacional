@@ -28,9 +28,7 @@ export interface SpendingStats {
 /**
  * Calculate statistics for each category
  */
-export function calculateCategoryStats(
-  entries: FinancialEntry[]
-): Map<string, SpendingStats> {
+export function calculateCategoryStats(entries: FinancialEntry[]): Map<string, SpendingStats> {
   const categoryData = new Map<string, number[]>();
 
   // Group amounts by category
@@ -49,8 +47,7 @@ export function calculateCategoryStats(
     const count = amounts.length;
     const total = amounts.reduce((a, b) => a + b, 0);
     const average = total / count;
-    const variance =
-      amounts.reduce((sum, val) => sum + Math.pow(val - average, 2), 0) / count;
+    const variance = amounts.reduce((sum, val) => sum + Math.pow(val - average, 2), 0) / count;
     const stdDev = Math.sqrt(variance);
     const min = Math.min(...amounts);
     const max = Math.max(...amounts);
@@ -82,9 +79,7 @@ export function detectSpendingAnomalies(
   const cutoffDate = new Date();
   cutoffDate.setDate(cutoffDate.getDate() - lookbackDays);
 
-  const recentEntries = entries.filter(
-    (e) => new Date(e.date) >= cutoffDate && e.type === 'saida'
-  );
+  const recentEntries = entries.filter((e) => new Date(e.date) >= cutoffDate && e.type === 'saida');
 
   if (recentEntries.length < 5) {
     // Not enough data
@@ -131,9 +126,9 @@ export function detectSpendingAnomalies(
   }
 
   for (const [category, count] of categoryFrequency.entries()) {
-    const stats = calculateCategoryStats(
-      recentEntries.filter((e) => e.category === category)
-    ).get(category);
+    const stats = calculateCategoryStats(recentEntries.filter((e) => e.category === category)).get(
+      category
+    );
 
     if (stats) {
       const normalWeeklyFreq = (stats.count / lookbackDays) * 7;
@@ -160,10 +155,7 @@ export function detectSpendingAnomalies(
 /**
  * Calculate burn rate (average daily NET spending: expenses - income)
  */
-export function calculateBurnRate(
-  entries: FinancialEntry[],
-  days: number = 30
-): number {
+export function calculateBurnRate(entries: FinancialEntry[], days: number = 30): number {
   const cutoffDate = new Date();
   cutoffDate.setDate(cutoffDate.getDate() - days);
 

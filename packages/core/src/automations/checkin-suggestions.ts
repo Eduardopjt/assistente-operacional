@@ -189,11 +189,7 @@ function calculateWellbeingScoreFromCheckins(checkins: DailyCheckin[]): number {
 /**
  * Calculate overall wellbeing score (0-100) from individual check-in dimensions (public API)
  */
-export function calculateWellbeingScore(
-  caixa: number,
-  energia: Energia,
-  pressao: Pressao
-): number {
+export function calculateWellbeingScore(caixa: number, energia: Energia, pressao: Pressao): number {
   let score = 0;
 
   // Caixa (40% weight) - normalize 0-10 to 0-40

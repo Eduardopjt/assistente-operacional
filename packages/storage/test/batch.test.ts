@@ -9,7 +9,7 @@ describe('Batch Operations', () => {
   beforeEach(() => {
     const adapter = new MockAdapter();
     db = adapter.open(':memory:');
-    
+
     // Create test table
     db.exec(`
       CREATE TABLE test_items (
@@ -69,7 +69,7 @@ describe('Batch Operations', () => {
       const result = bulkInsert(db, 'test_items', records);
 
       expect(result.inserted).toBe(2);
-      
+
       const row = db.prepare('SELECT * FROM test_items WHERE id = ?').get('a') as any;
       expect(row.updated_at).toBe(12345);
     });
@@ -78,9 +78,24 @@ describe('Batch Operations', () => {
   describe('bulkUpdate', () => {
     beforeEach(() => {
       // Insert test data
-      db.prepare('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)').run('1', 'Item 1', 100, 1000);
-      db.prepare('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)').run('2', 'Item 2', 200, 2000);
-      db.prepare('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)').run('3', 'Item 3', 300, 3000);
+      db.prepare('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)').run(
+        '1',
+        'Item 1',
+        100,
+        1000
+      );
+      db.prepare('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)').run(
+        '2',
+        'Item 2',
+        200,
+        2000
+      );
+      db.prepare('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)').run(
+        '3',
+        'Item 3',
+        300,
+        3000
+      );
     });
 
     it('should update multiple records in a single transaction', () => {
@@ -117,9 +132,7 @@ describe('Batch Operations', () => {
     });
 
     it('should not update non-existent records', () => {
-      const updates = [
-        { id: 'nonexistent', name: 'Ghost' },
-      ];
+      const updates = [{ id: 'nonexistent', name: 'Ghost' }];
 
       const result = bulkUpdate(db, 'test_items', updates);
 
@@ -136,9 +149,24 @@ describe('Batch Operations', () => {
 
   describe('bulkDelete', () => {
     beforeEach(() => {
-      db.prepare('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)').run('1', 'Item 1', 100, null);
-      db.prepare('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)').run('2', 'Item 2', 200, null);
-      db.prepare('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)').run('3', 'Item 3', 300, null);
+      db.prepare('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)').run(
+        '1',
+        'Item 1',
+        100,
+        null
+      );
+      db.prepare('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)').run(
+        '2',
+        'Item 2',
+        200,
+        null
+      );
+      db.prepare('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)').run(
+        '3',
+        'Item 3',
+        300,
+        null
+      );
     });
 
     it('should delete multiple records in a single transaction', () => {
@@ -173,8 +201,18 @@ describe('Batch Operations', () => {
     it('should queue operations and execute in transaction', () => {
       const executor = new BatchExecutor(db);
 
-      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', ['1', 'Item 1', 100, null]);
-      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', ['2', 'Item 2', 200, null]);
+      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', [
+        '1',
+        'Item 1',
+        100,
+        null,
+      ]);
+      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', [
+        '2',
+        'Item 2',
+        200,
+        null,
+      ]);
 
       expect(executor.count()).toBe(2);
 
@@ -190,8 +228,18 @@ describe('Batch Operations', () => {
     it('should rollback all operations on error', () => {
       const executor = new BatchExecutor(db);
 
-      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', ['1', 'Item 1', 100, null]);
-      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', ['1', 'Duplicate', 200, null]); // Duplicate
+      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', [
+        '1',
+        'Item 1',
+        100,
+        null,
+      ]);
+      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', [
+        '1',
+        'Duplicate',
+        200,
+        null,
+      ]); // Duplicate
 
       const result = executor.execute();
 
@@ -205,7 +253,12 @@ describe('Batch Operations', () => {
     it('should clear queue after execution', () => {
       const executor = new BatchExecutor(db);
 
-      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', ['1', 'Item 1', 100, null]);
+      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', [
+        '1',
+        'Item 1',
+        100,
+        null,
+      ]);
       executor.execute();
 
       expect(executor.count()).toBe(0);
@@ -214,10 +267,20 @@ describe('Batch Operations', () => {
     it('should allow reuse after clear', () => {
       const executor = new BatchExecutor(db);
 
-      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', ['1', 'Item 1', 100, null]);
+      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', [
+        '1',
+        'Item 1',
+        100,
+        null,
+      ]);
       executor.execute();
 
-      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', ['2', 'Item 2', 200, null]);
+      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', [
+        '2',
+        'Item 2',
+        200,
+        null,
+      ]);
       const result = executor.execute();
 
       expect(result.success).toBe(1);
@@ -229,7 +292,12 @@ describe('Batch Operations', () => {
     it('should manually clear queue', () => {
       const executor = new BatchExecutor(db);
 
-      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', ['1', 'Item 1', 100, null]);
+      executor.add('INSERT INTO test_items (id, name, value, updated_at) VALUES (?, ?, ?, ?)', [
+        '1',
+        'Item 1',
+        100,
+        null,
+      ]);
       executor.clear();
 
       expect(executor.count()).toBe(0);

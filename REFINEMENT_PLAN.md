@@ -1,7 +1,9 @@
 # 🚀 Plano de Refinamento - Assistente Operacional
+
 ## Objetivo: Criar o melhor assistente de gestão pessoal do mercado
 
 ## ✅ Estado Atual (CP6 Completo)
+
 - ✅ Monorepo configurado (pnpm workspaces)
 - ✅ Core engine com regras de estado
 - ✅ Storage SQLite offline-first
@@ -14,8 +16,10 @@
 ## 🎯 Refinamentos Críticos
 
 ### 1. CORE - Engine de Decisão Avançado
+
 **Problema**: Regras simples, pouco contexto
 **Solução**:
+
 - [ ] Adicionar ML/heurísticas para detecção de padrões
 - [ ] Sistema de pesos dinâmicos baseado em histórico
 - [ ] Predição de caixa usando médias móveis exponenciais
@@ -23,8 +27,10 @@
 - [ ] Score de saúde financeira (0-100)
 
 ### 2. STORAGE - Performance & Sync
+
 **Problema**: Apenas local, sem sync
 **Solução**:
+
 - [ ] Índices otimizados no SQLite
 - [ ] Cache em memória para queries frequentes
 - [ ] Preparar estrutura para sync cloud (opcional)
@@ -32,8 +38,10 @@
 - [ ] Backup automático local
 
 ### 3. UX - Interface Inteligente
+
 **Problema**: UI básica
 **Solução**:
+
 - [ ] Dashboard com gráficos interativos (recharts)
 - [ ] Animações fluidas (framer-motion)
 - [ ] Modo focus (bloqueia distrações)
@@ -41,8 +49,10 @@
 - [ ] Temas personalizáveis
 
 ### 4. MOBILE - Funcionalidades Nativas
+
 **Problema**: Falta integração mobile
 **Solução**:
+
 - [ ] Notificações push locais
 - [ ] Widgets home screen
 - [ ] Foto de recibos com OCR
@@ -50,8 +60,10 @@
 - [ ] Offline-first verdadeiro
 
 ### 5. INTELIGÊNCIA - Action Mother 2.0
+
 **Problema**: Sugestões genéricas
 **Solução**:
+
 - [ ] Análise de padrões de comportamento
 - [ ] Recomendações baseadas em objetivos
 - [ ] Detecção de anomalias financeiras
@@ -63,6 +75,7 @@
 ## 📊 Funcionalidades Premium
 
 ### Finanças Inteligentes
+
 - [ ] Categorização automática de gastos
 - [ ] Detecção de despesas recorrentes
 - [ ] Alertas de gastos incomuns
@@ -70,6 +83,7 @@
 - [ ] Comparação com média histórica
 
 ### Projetos 3.0
+
 - [ ] Estimativa automática de tempo
 - [ ] Detecção de projetos travados
 - [ ] Sugestões de próximos passos
@@ -77,6 +91,7 @@
 - [ ] Templates de projetos comuns
 
 ### Check-in Diário Gamificado
+
 - [ ] Streaks de consistência
 - [ ] Conquistas desbloqueáveis
 - [ ] Análise de humor semanal
@@ -84,6 +99,7 @@
 - [ ] Relatório de energia vs. tarefas
 
 ### Histórico & Analytics
+
 - [ ] Visualizações interativas
 - [ ] Exportação de dados (CSV/PDF)
 - [ ] Comparação mês a mês
@@ -95,6 +111,7 @@
 ## 🔧 Melhorias Técnicas
 
 ### Performance
+
 - [ ] Code splitting no desktop
 - [ ] Lazy loading de componentes
 - [ ] Virtualização de listas longas
@@ -102,6 +119,7 @@
 - [ ] Compressão de dados
 
 ### Segurança
+
 - [ ] Criptografia de dados sensíveis
 - [ ] Autenticação biométrica (mobile)
 - [ ] Backup criptografado
@@ -109,6 +127,7 @@
 - [ ] Sanitização de inputs
 
 ### Developer Experience
+
 - [ ] Storybook para componentes
 - [ ] Testes E2E (Playwright)
 - [ ] Coverage >80%
@@ -120,24 +139,28 @@
 ## 📈 Roadmap de Implementação
 
 ### Fase 1: Core Inteligente (Próxima)
+
 1. Refinar rules engine
 2. Adicionar cálculos avançados
 3. Melhorar Action Mother
 4. Testes aprofundados
 
 ### Fase 2: UX Excellence
+
 1. Dashboard rico
 2. Gráficos interativos
 3. Animações
 4. Temas
 
 ### Fase 3: Mobile Power
+
 1. Notificações
 2. OCR de recibos
 3. Widgets
 4. Geolocalização
 
 ### Fase 4: Analytics & Insights
+
 1. Visualizações avançadas
 2. ML para padrões
 3. Relatórios automáticos

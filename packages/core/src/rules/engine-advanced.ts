@@ -11,7 +11,7 @@ import {
 
 /**
  * Enhanced Core Rules Engine with ML-like predictive capabilities
- * 
+ *
  * NEW FEATURES:
  * - Health score (0-100) calculation
  * - Spending trend detection and anomalies
@@ -351,13 +351,11 @@ export function calculateHealthScore(
   score -= (100 - finance.health_score) * 0.5;
 
   // Energy health (30%)
-  const energyPenalty =
-    checkin.energia === 'baixa' ? 30 : checkin.energia === 'media' ? 10 : 0;
+  const energyPenalty = checkin.energia === 'baixa' ? 30 : checkin.energia === 'media' ? 10 : 0;
   score -= energyPenalty * 0.3;
 
   // Project health (20%)
-  const projectPenalty =
-    projects.stalled_count * 10 + Math.max(0, projects.active_count - 3) * 5;
+  const projectPenalty = projects.stalled_count * 10 + Math.max(0, projects.active_count - 3) * 5;
   score -= Math.min(projectPenalty, 20);
 
   return Math.max(0, Math.min(100, Math.round(score)));

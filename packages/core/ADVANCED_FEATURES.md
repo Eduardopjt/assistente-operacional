@@ -17,11 +17,10 @@ Score de saúde operacional calculado com base em 3 pilares:
 ```typescript
 import { calculateHealthScore } from '@assistente/core';
 
-const score = calculateHealthScore(
-  enhancedFinanceSummary,
-  currentCheckin,
-  { active_count: 3, stalled_count: 1 }
-);
+const score = calculateHealthScore(enhancedFinanceSummary, currentCheckin, {
+  active_count: 3,
+  stalled_count: 1,
+});
 // score: 0-100
 ```
 
@@ -57,10 +56,7 @@ import { PatternDetector } from '@assistente/core';
 const patterns = PatternDetector.analyzeWeeklyPatterns(checkins);
 // { bestDay: 'Monday', worstDay: 'Friday', avgEnergyByDay: {...} }
 
-const correlation = PatternDetector.correlateMoodAndProductivity(
-  checkins,
-  taskCompletions
-);
+const correlation = PatternDetector.correlateMoodAndProductivity(checkins, taskCompletions);
 // -1 to 1 (Pearson correlation)
 ```
 
@@ -177,18 +173,18 @@ return clamp(score, 0, 100)
 
 ## Comparação: Engine Original vs Advanced
 
-| Feature | Original | Advanced |
-|---------|----------|----------|
-| State Calculation | ✅ | ✅ |
-| Basic Alerts | ✅ | ✅ |
-| Action-Mother | ✅ | ✅ Enhanced |
-| Health Score | ❌ | ✅ 0-100 |
-| Spending Prediction | ❌ | ✅ EMA + Forecast |
-| Anomaly Detection | ❌ | ✅ Statistical |
-| Energy Patterns | ❌ | ✅ Weekly Analysis |
-| Productivity Correlation | ❌ | ✅ Pearson |
-| Project Prioritization | ❌ | ✅ Multi-factor |
-| Spending Trend | ❌ | ✅ 3-state |
+| Feature                  | Original | Advanced           |
+| ------------------------ | -------- | ------------------ |
+| State Calculation        | ✅       | ✅                 |
+| Basic Alerts             | ✅       | ✅                 |
+| Action-Mother            | ✅       | ✅ Enhanced        |
+| Health Score             | ❌       | ✅ 0-100           |
+| Spending Prediction      | ❌       | ✅ EMA + Forecast  |
+| Anomaly Detection        | ❌       | ✅ Statistical     |
+| Energy Patterns          | ❌       | ✅ Weekly Analysis |
+| Productivity Correlation | ❌       | ✅ Pearson         |
+| Project Prioritization   | ❌       | ✅ Multi-factor    |
+| Spending Trend           | ❌       | ✅ 3-state         |
 
 ## Exemplos de Uso
 
@@ -295,10 +291,10 @@ O engine original ainda está disponível e funcional. Para migrar:
 import { computeState, generateAlerts } from '@assistente/core';
 
 // Depois (com advanced features)
-import { 
+import {
   computeAdvancedInsights,
   generateAdvancedAlerts,
-  computeAdvancedActionMother 
+  computeAdvancedActionMother
 } from '@assistente/core';
 
 const insights = computeAdvancedInsights(...);

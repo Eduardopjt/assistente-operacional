@@ -11,9 +11,9 @@ describe('PerformanceMonitor', () => {
   describe('start and stop tracking', () => {
     it('should track query execution time', async () => {
       const end = monitor.start('test.query');
-      
+
       await new Promise((resolve) => setTimeout(resolve, 50));
-      
+
       end();
 
       const metric = monitor.getMetric('test.query');
@@ -51,7 +51,7 @@ describe('PerformanceMonitor', () => {
   describe('metrics calculation', () => {
     it('should calculate average time correctly', () => {
       const times = [10, 20, 30, 40, 50];
-      
+
       times.forEach((time) => {
         const end = monitor.start('test.query');
         // Simulate execution time
@@ -89,13 +89,13 @@ describe('PerformanceMonitor', () => {
 
     it('should update lastExecuted timestamp', () => {
       const before = Date.now();
-      
+
       const end = monitor.start('test.query');
       end();
 
       const after = Date.now();
       const metric = monitor.getMetric('test.query');
-      
+
       expect(metric!.lastExecuted).toBeGreaterThanOrEqual(before);
       expect(metric!.lastExecuted).toBeLessThanOrEqual(after);
     });

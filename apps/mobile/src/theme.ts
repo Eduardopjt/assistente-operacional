@@ -9,13 +9,13 @@ export const colors = {
   backgroundElevated: '#13161D',
   surface: '#1A1E27',
   surfaceElevated: '#242933',
-  
+
   // Text hierarchy
   textPrimary: '#FFFFFF',
   textSecondary: '#A0A8B8',
   textTertiary: '#6B7280',
   textMuted: '#4B5563',
-  
+
   // Borders & dividers
   border: '#2A2F3A',
   borderSubtle: '#1F242E',
@@ -25,11 +25,11 @@ export const colors = {
   attack: '#22C55E',
   attackSubtle: '#16A34A',
   attackLight: 'rgba(34, 197, 94, 0.12)',
-  
+
   caution: '#F59E0B',
   cautionSubtle: '#D97706',
   cautionLight: 'rgba(245, 158, 11, 0.12)',
-  
+
   critical: '#EF4444',
   criticalSubtle: '#DC2626',
   criticalLight: 'rgba(239, 68, 68, 0.12)',
@@ -39,7 +39,7 @@ export const colors = {
   warning: '#F59E0B',
   error: '#EF4444',
   info: '#3B82F6',
-  
+
   // Accent for CTAs
   primary: '#3B82F6',
   primaryHover: '#2563EB',

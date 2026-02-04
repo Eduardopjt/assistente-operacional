@@ -1,7 +1,7 @@
 /**
  * expo-sqlite adapter for mobile (React Native + Expo)
  * Asynchronous SQLite interface wrapped to appear synchronous for repository pattern
- * 
+ *
  * Note: This is a simplified synchronous wrapper. For production, consider:
  * - Making repositories async
  * - Or using a worker thread to maintain sync interface
@@ -27,7 +27,10 @@ interface Statement {
 }
 
 class ExpoSqliteStatement implements Statement {
-  constructor(private db: WebSQLDatabase, private sql: string) {}
+  constructor(
+    private db: WebSQLDatabase,
+    private sql: string
+  ) {}
 
   run(..._params: unknown[]): { lastInsertRowid: number; changes: number } {
     throw new Error(
@@ -92,12 +95,12 @@ export class ExpoSqliteAdapter implements DatabaseAdapter {
 
 /**
  * RECOMMENDATION FOR CP4 (Mobile Implementation):
- * 
+ *
  * Either:
  * 1. Make all repositories async (better approach)
  * 2. Use @op-engineering/op-sqlite instead (synchronous on mobile)
  * 3. Create async wrappers around repositories
- * 
+ *
  * For now, this adapter exists to satisfy type requirements.
  * We'll use better-sqlite3 for desktop and address mobile in CP4.
  */

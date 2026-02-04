@@ -4,14 +4,14 @@
  * For now, using in-memory storage to complete UI implementation
  */
 
-import { 
-  User, 
-  DailyCheckin, 
-  FinancialEntry, 
-  Project, 
-  Task, 
-  Decision, 
-  Alert 
+import {
+  User,
+  DailyCheckin,
+  FinancialEntry,
+  Project,
+  Task,
+  Decision,
+  Alert,
 } from '@assistente/core';
 import { generateId } from '@assistente/shared';
 
@@ -45,9 +45,9 @@ class MockStorageService {
   // Check-ins
   async getTodayCheckin(userId: string): Promise<DailyCheckin | null> {
     const today = new Date().toDateString();
-    return this.checkins.find(
-      (c) => c.user_id === userId && c.date.toDateString() === today
-    ) || null;
+    return (
+      this.checkins.find((c) => c.user_id === userId && c.date.toDateString() === today) || null
+    );
   }
 
   async createCheckin(checkin: Omit<DailyCheckin, 'id'>): Promise<DailyCheckin> {
@@ -82,7 +82,9 @@ class MockStorageService {
   }
 
   // Projects
-  async createProject(project: Omit<Project, 'id' | 'created_at' | 'updated_at'>): Promise<Project> {
+  async createProject(
+    project: Omit<Project, 'id' | 'created_at' | 'updated_at'>
+  ): Promise<Project> {
     const now = new Date();
     const newProject: Project = {
       id: generateId(),
@@ -144,9 +146,7 @@ class MockStorageService {
   }
 
   async getRecentDecisions(userId: string, limit: number): Promise<Decision[]> {
-    return this.decisions
-      .filter((d) => d.user_id === userId)
-      .slice(0, limit);
+    return this.decisions.filter((d) => d.user_id === userId).slice(0, limit);
   }
 
   // Alias for automations

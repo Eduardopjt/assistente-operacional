@@ -142,11 +142,14 @@ export class ProjectAnalytics {
   /**
    * Score project priority based on multiple factors
    */
-  static calculatePriorityScore(project: Project, context: {
-    financialImpact: number; // 0-10
-    energyRequired: number; // 0-10
-    deadline?: Date;
-  }): number {
+  static calculatePriorityScore(
+    project: Project,
+    context: {
+      financialImpact: number; // 0-10
+      energyRequired: number; // 0-10
+      deadline?: Date;
+    }
+  ): number {
     let score = 0;
 
     // Financial impact (40%)
@@ -189,7 +192,7 @@ export class PatternDetector {
     checkins.forEach((c) => {
       const day = days[new Date(c.date).getDay()];
       if (!energyByDay[day]) energyByDay[day] = [];
-      
+
       const energyValue = c.energia === 'alta' ? 3 : c.energia === 'media' ? 2 : 1;
       energyByDay[day].push(energyValue);
     });

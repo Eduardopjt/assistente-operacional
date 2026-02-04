@@ -1,9 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import {
-  FinanceAnalytics,
-  ProjectAnalytics,
-  PatternDetector,
-} from '../index';
+import { FinanceAnalytics, ProjectAnalytics, PatternDetector } from '../index';
 import { DailyCheckin, Project } from '../../entities';
 
 describe('FinanceAnalytics', () => {
@@ -143,7 +139,11 @@ describe('FinanceAnalytics', () => {
 });
 
 describe('ProjectAnalytics', () => {
-  const createProject = (name: string, status: Project['status'], daysAgo: number = 0): Project => ({
+  const createProject = (
+    name: string,
+    status: Project['status'],
+    daysAgo: number = 0
+  ): Project => ({
     id: crypto.randomUUID(),
     user_id: 'test-user',
     name,

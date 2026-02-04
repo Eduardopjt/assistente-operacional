@@ -19,8 +19,8 @@ import {
   computeAdvancedGuidance,
   calculateHealthScore,
 } from '@assistente/core';
-import type { 
-  FinanceSummary, 
+import type {
+  FinanceSummary,
   ProjectStats,
   OperationalInsights,
   EnhancedFinanceSummary,
@@ -30,9 +30,9 @@ import type {
 function calculateFinanceSummary(entries: FinancialEntry[]): FinanceSummary {
   const now = Date.now();
   const thirtyDaysAgo = now - 30 * 24 * 60 * 60 * 1000;
-  
-  const recentEntries = entries.filter(e => new Date(e.date).getTime() >= thirtyDaysAgo);
-  
+
+  const recentEntries = entries.filter((e) => new Date(e.date).getTime() >= thirtyDaysAgo);
+
   const totals = recentEntries.reduce(
     (acc, entry) => {
       if (entry.type === 'entrada') {
@@ -44,11 +44,11 @@ function calculateFinanceSummary(entries: FinancialEntry[]): FinanceSummary {
     },
     { entradas: 0, saidas: 0 }
   );
-  
+
   const balance = totals.entradas - totals.saidas;
   const avgDailySpending = totals.saidas / 30;
   const forecastDays = avgDailySpending > 0 ? Math.floor(balance / avgDailySpending) : 999;
-  
+
   return {
     total_entradas: totals.entradas,
     total_saidas: totals.saidas,
@@ -60,9 +60,9 @@ function calculateFinanceSummary(entries: FinancialEntry[]): FinanceSummary {
 
 function calculateProjectStats(projects: Project[]): ProjectStats {
   return {
-    active_count: projects.filter(p => p.status === 'active').length,
-    paused_count: projects.filter(p => p.status === 'paused').length,
-    done_count: projects.filter(p => p.status === 'done').length,
+    active_count: projects.filter((p) => p.status === 'active').length,
+    paused_count: projects.filter((p) => p.status === 'paused').length,
+    done_count: projects.filter((p) => p.status === 'done').length,
     stalled_count: 0, // TODO: Implement stalled detection based on updated_at
   };
 }

@@ -15,7 +15,10 @@ export interface FinanceRepository {
   getByType(userId: string, type: 'entrada' | 'saida'): FinancialEntry[];
   delete(id: string): void;
   deleteMany(ids: string[]): { deleted: number; errors: Error[] };
-  getSummary(userId: string, days: number): {
+  getSummary(
+    userId: string,
+    days: number
+  ): {
     totalEntradas: number;
     totalSaidas: number;
     balance: number;
@@ -38,7 +41,7 @@ export class OptimizedFinanceRepository implements FinanceRepository {
 
   create(data: Omit<FinancialEntry, 'id'>): FinancialEntry {
     const end = this.monitor.start('finance.create');
-    
+
     const entry: FinancialEntry = {
       id: generateId(),
       ...data,
@@ -63,14 +66,14 @@ export class OptimizedFinanceRepository implements FinanceRepository {
 
     // Invalidate user's cache
     this.cache.invalidate(`finance:user:${entry.user_id}`);
-    
+
     end();
     return entry;
   }
 
   createMany(entries: Omit<FinancialEntry, 'id'>[]): { inserted: number; errors: Error[] } {
     const end = this.monitor.start('finance.createMany');
-    
+
     const records = entries.map((entry) => ({
       id: generateId(),
       user_id: entry.user_id,
@@ -83,7 +86,7 @@ export class OptimizedFinanceRepository implements FinanceRepository {
     }));
 
     const result = bulkInsert(this.db, 'financial_entries', records);
-    
+
     // Invalidate cache for all affected users
     const userIds = new Set(entries.map((e) => e.user_id));
     userIds.forEach((userId) => {
@@ -103,11 +106,11 @@ export class OptimizedFinanceRepository implements FinanceRepository {
     const stmt = this.db.prepare('SELECT * FROM financial_entries WHERE id = ?');
     const row = stmt.get(id) as any;
     const entry = row ? this.mapRowToEntry(row) : null;
-    
+
     if (entry) {
       this.cache.set(cacheKey, entry);
     }
-    
+
     end();
     return entry;
   }
@@ -127,7 +130,7 @@ export class OptimizedFinanceRepository implements FinanceRepository {
     const stmt = this.db.prepare(sql);
     const rows = limit ? stmt.all(userId, limit) : stmt.all(userId);
     const entries = (rows as any[]).map((row) => this.mapRowToEntry(row));
-    
+
     this.cache.set(cacheKey, entries);
     end();
     return entries;
@@ -150,7 +153,7 @@ export class OptimizedFinanceRepository implements FinanceRepository {
     `);
     const rows = stmt.all(userId, startDate.getTime(), endDate.getTime()) as any[];
     const entries = rows.map((row) => this.mapRowToEntry(row));
-    
+
     this.cache.set(cacheKey, entries);
     end();
     return entries;
@@ -174,13 +177,16 @@ export class OptimizedFinanceRepository implements FinanceRepository {
     `);
     const rows = stmt.all(userId, type) as any[];
     const entries = rows.map((row) => this.mapRowToEntry(row));
-    
+
     this.cache.set(cacheKey, entries);
     end();
     return entries;
   }
 
-  getSummary(userId: string, days: number): {
+  getSummary(
+    userId: string,
+    days: number
+  ): {
     totalEntradas: number;
     totalSaidas: number;
     balance: number;
@@ -192,7 +198,7 @@ export class OptimizedFinanceRepository implements FinanceRepository {
 
     const end = this.monitor.start('finance.getSummary');
     const cutoff = daysAgo(days);
-    
+
     const stmt = this.db.prepare(`
       SELECT 
         SUM(CASE WHEN type = 'entrada' THEN value ELSE 0 END) as total_entradas,
@@ -201,16 +207,16 @@ export class OptimizedFinanceRepository implements FinanceRepository {
       FROM financial_entries
       WHERE user_id = ? AND date >= ?
     `);
-    
+
     const row = stmt.get(userId, cutoff.getTime()) as any;
-    
+
     const summary = {
       totalEntradas: row.total_entradas || 0,
       totalSaidas: row.total_saidas || 0,
       balance: (row.total_entradas || 0) - (row.total_saidas || 0),
       count: row.count || 0,
     };
-    
+
     this.cache.set(cacheKey, summary);
     end();
     return summary;
@@ -218,28 +224,28 @@ export class OptimizedFinanceRepository implements FinanceRepository {
 
   delete(id: string): void {
     const end = this.monitor.start('finance.delete');
-    
+
     // Get entry to invalidate user cache
     const entry = this.getById(id);
-    
+
     const stmt = this.db.prepare('DELETE FROM financial_entries WHERE id = ?');
     stmt.run(id);
-    
+
     if (entry) {
       this.cache.invalidate(`finance:user:${entry.user_id}`);
       this.cache.invalidate(`finance:id:${id}`);
     }
-    
+
     end();
   }
 
   deleteMany(ids: string[]): { deleted: number; errors: Error[] } {
     const end = this.monitor.start('finance.deleteMany');
     const result = bulkDelete(this.db, 'financial_entries', ids);
-    
+
     // Invalidate all cache (we don't know which users were affected)
     this.cache.clear();
-    
+
     end();
     return result;
   }

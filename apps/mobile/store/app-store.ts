@@ -1,10 +1,10 @@
 import { create } from 'zustand';
-import { 
-  User, 
-  DailyCheckin, 
-  FinancialEntry, 
-  Project, 
-  Task, 
+import {
+  User,
+  DailyCheckin,
+  FinancialEntry,
+  Project,
+  Task,
   Alert,
   EstadoCalculado,
   computeState,
@@ -12,7 +12,7 @@ import {
   computeGuidance,
   generateAlerts,
   OperationalContext,
-  Guidance
+  Guidance,
 } from '@assistente/core';
 
 interface AppState {
@@ -79,7 +79,7 @@ export const useAppStore = create<AppState>((set, get) => ({
 
     const newAlerts = generateAlerts(context, checkin.user_id);
     const actionMother = computeActionMother(context);
-    
+
     // Add IDs and dates to new alerts
     const alertsWithIds: Alert[] = newAlerts.map((a, i) => ({
       ...a,
@@ -132,9 +132,7 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   updateProject: (project) => {
     set((state) => ({
-      activeProjects: state.activeProjects.map((p) =>
-        p.id === project.id ? project : p
-      ),
+      activeProjects: state.activeProjects.map((p) => (p.id === project.id ? project : p)),
     }));
     get().refreshDashboard();
   },
@@ -155,9 +153,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   // Alerts
   resolveAlert: (alertId) => {
     set((state) => ({
-      alerts: state.alerts.map((a) =>
-        a.id === alertId ? { ...a, resolved: true } : a
-      ),
+      alerts: state.alerts.map((a) => (a.id === alertId ? { ...a, resolved: true } : a)),
     }));
     get().refreshDashboard();
   },
@@ -175,13 +171,9 @@ function calculateFinanceSummary(entries: FinancialEntry[]) {
   const total_saidas = saidas.reduce((sum, e) => sum + e.value, 0);
   const balance = total_entradas - total_saidas;
 
-  const avg_daily_spending = saidas.length > 0 
-    ? total_saidas / 30 
-    : 0;
+  const avg_daily_spending = saidas.length > 0 ? total_saidas / 30 : 0;
 
-  const forecast_days = avg_daily_spending > 0 
-    ? Math.floor(balance / avg_daily_spending)
-    : 999;
+  const forecast_days = avg_daily_spending > 0 ? Math.floor(balance / avg_daily_spending) : 999;
 
   return {
     total_entradas,

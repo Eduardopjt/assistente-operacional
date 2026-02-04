@@ -39,7 +39,7 @@ describe('QueryCache', () => {
       smallCache.set('key1', 'value1');
       smallCache.set('key2', 'value2');
       smallCache.set('key3', 'value3');
-      
+
       // Cache is full (3 items)
       expect(smallCache.get('key1')).toBe('value1');
       expect(smallCache.get('key2')).toBe('value2');
@@ -71,20 +71,20 @@ describe('QueryCache', () => {
     it('should expire entries after TTL', async () => {
       const shortCache = new QueryCache(10, 0.01); // 0.01 min = 600ms
       shortCache.set('key1', 'value1');
-      
+
       expect(shortCache.get('key1')).toBe('value1');
-      
+
       await new Promise((resolve) => setTimeout(resolve, 700));
-      
+
       expect(shortCache.get('key1')).toBeNull();
     });
 
     it('should not expire entries before TTL', async () => {
       const longCache = new QueryCache(10, 10); // 10 minutes
       longCache.set('key1', 'value1');
-      
+
       await new Promise((resolve) => setTimeout(resolve, 100));
-      
+
       expect(longCache.get('key1')).toBe('value1');
     });
   });
@@ -138,7 +138,7 @@ describe('QueryCache', () => {
   describe('stats', () => {
     it('should track hit rate', () => {
       cache.set('key1', 'value1');
-      
+
       cache.get('key1'); // hit
       cache.get('key1'); // hit
       cache.get('key2'); // miss

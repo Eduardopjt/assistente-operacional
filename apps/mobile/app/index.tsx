@@ -37,9 +37,7 @@ export default function Index() {
         <Text style={styles.subtitle}>Decisões inteligentes, operação eficiente</Text>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>
-            {hasCheckin ? 'Bem-vindo de volta!' : 'Bom dia!'}
-          </Text>
+          <Text style={styles.cardTitle}>{hasCheckin ? 'Bem-vindo de volta!' : 'Bom dia!'}</Text>
           <Text style={styles.cardText}>
             {hasCheckin
               ? 'Seu dia já foi configurado. Continue de onde parou.'
@@ -54,22 +52,13 @@ export default function Index() {
         </TouchableOpacity>
 
         <View style={styles.quickActions}>
-          <TouchableOpacity
-            style={styles.quickAction}
-            onPress={() => router.push('/finance')}
-          >
+          <TouchableOpacity style={styles.quickAction} onPress={() => router.push('/finance')}>
             <Text style={styles.quickActionText}>💰 Financeiro</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.quickAction}
-            onPress={() => router.push('/projects')}
-          >
+          <TouchableOpacity style={styles.quickAction} onPress={() => router.push('/projects')}>
             <Text style={styles.quickActionText}>📋 Projetos</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.quickAction}
-            onPress={() => router.push('/history')}
-          >
+          <TouchableOpacity style={styles.quickAction} onPress={() => router.push('/history')}>
             <Text style={styles.quickActionText}>📅 Histórico</Text>
           </TouchableOpacity>
         </View>

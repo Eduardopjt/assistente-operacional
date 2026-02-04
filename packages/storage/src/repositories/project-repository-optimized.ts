@@ -7,7 +7,10 @@ import { bulkInsert, bulkDelete } from '../batch';
 
 export interface ProjectRepository {
   create(project: Omit<Project, 'id' | 'created_at' | 'updated_at'>): Project;
-  createMany(projects: Omit<Project, 'id' | 'created_at' | 'updated_at'>[]): { inserted: number; errors: Error[] };
+  createMany(projects: Omit<Project, 'id' | 'created_at' | 'updated_at'>[]): {
+    inserted: number;
+    errors: Error[];
+  };
   getById(id: string): Project | null;
   getByUser(userId: string): Project[];
   getByStatus(userId: string, status: ProjectStatus): Project[];
@@ -32,7 +35,7 @@ export class OptimizedProjectRepository implements ProjectRepository {
 
   create(data: Omit<Project, 'id' | 'created_at' | 'updated_at'>): Project {
     const end = this.monitor.start('project.create');
-    
+
     const now = new Date();
     const project: Project = {
       id: generateId(),
@@ -63,9 +66,12 @@ export class OptimizedProjectRepository implements ProjectRepository {
     return project;
   }
 
-  createMany(projects: Omit<Project, 'id' | 'created_at' | 'updated_at'>[]): { inserted: number; errors: Error[] } {
+  createMany(projects: Omit<Project, 'id' | 'created_at' | 'updated_at'>[]): {
+    inserted: number;
+    errors: Error[];
+  } {
     const end = this.monitor.start('project.createMany');
-    
+
     const now = Date.now();
     const records = projects.map((project) => ({
       id: generateId(),
@@ -79,7 +85,7 @@ export class OptimizedProjectRepository implements ProjectRepository {
     }));
 
     const result = bulkInsert(this.db, 'projects', records);
-    
+
     const userIds = new Set(projects.map((p) => p.user_id));
     userIds.forEach((userId) => {
       this.cache.invalidate(`project:user:${userId}`);
@@ -98,11 +104,11 @@ export class OptimizedProjectRepository implements ProjectRepository {
     const stmt = this.db.prepare('SELECT * FROM projects WHERE id = ?');
     const row = stmt.get(id) as any;
     const project = row ? this.mapRowToProject(row) : null;
-    
+
     if (project) {
       this.cache.set(cacheKey, project);
     }
-    
+
     end();
     return project;
   }
@@ -120,7 +126,7 @@ export class OptimizedProjectRepository implements ProjectRepository {
     `);
     const rows = stmt.all(userId) as any[];
     const projects = rows.map((row) => this.mapRowToProject(row));
-    
+
     this.cache.set(cacheKey, projects);
     end();
     return projects;
@@ -139,7 +145,7 @@ export class OptimizedProjectRepository implements ProjectRepository {
     `);
     const rows = stmt.all(userId, status) as any[];
     const projects = rows.map((row) => this.mapRowToProject(row));
-    
+
     this.cache.set(cacheKey, projects);
     end();
     return projects;
@@ -147,7 +153,7 @@ export class OptimizedProjectRepository implements ProjectRepository {
 
   update(project: Project): void {
     const end = this.monitor.start('project.update');
-    
+
     const stmt = this.db.prepare(`
       UPDATE projects 
       SET name = ?, status = ?, objective = ?, next_action = ?, updated_at = ?
@@ -170,16 +176,16 @@ export class OptimizedProjectRepository implements ProjectRepository {
 
   delete(id: string): void {
     const end = this.monitor.start('project.delete');
-    
+
     const project = this.getById(id);
     const stmt = this.db.prepare('DELETE FROM projects WHERE id = ?');
     stmt.run(id);
-    
+
     if (project) {
       this.cache.invalidate(`project:user:${project.user_id}`);
       this.cache.invalidate(`project:id:${id}`);
     }
-    
+
     end();
   }
 
@@ -207,7 +213,7 @@ export class OptimizedProjectRepository implements ProjectRepository {
     `);
     const rows = stmt.all(userId, cutoff) as any[];
     const projects = rows.map((row) => this.mapRowToProject(row));
-    
+
     this.cache.set(cacheKey, projects);
     end();
     return projects;

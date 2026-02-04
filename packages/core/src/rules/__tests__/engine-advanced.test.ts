@@ -25,7 +25,11 @@ describe('Engine Advanced', () => {
     estado_calculado: 'CAUTION',
   });
 
-  const createEntry = (type: 'entrada' | 'saida', value: number, daysAgo: number = 0): FinancialEntry => ({
+  const createEntry = (
+    type: 'entrada' | 'saida',
+    value: number,
+    daysAgo: number = 0
+  ): FinancialEntry => ({
     id: crypto.randomUUID(),
     user_id: 'test-user',
     type,
@@ -86,10 +90,7 @@ describe('Engine Advanced', () => {
     });
 
     it('should include health score', () => {
-      const entries = [
-        createEntry('entrada', 100000, 10),
-        createEntry('saida', 50000, 5),
-      ];
+      const entries = [createEntry('entrada', 100000, 10), createEntry('saida', 50000, 5)];
 
       const summary = computeAdvancedFinanceSummary(entries, 30);
       expect(summary.health_score).toBeDefined();
@@ -151,13 +152,7 @@ describe('Engine Advanced', () => {
         createCheckin('tranquilo', 'media', 'leve'),
       ];
 
-      const insights = computeAdvancedInsights(
-        checkins[0],
-        checkins,
-        [],
-        [],
-        {}
-      );
+      const insights = computeAdvancedInsights(checkins[0], checkins, [], [], {});
 
       expect(insights.energy_pattern.best_day).toBeDefined();
       expect(insights.energy_pattern.worst_day).toBeDefined();
@@ -170,13 +165,7 @@ describe('Engine Advanced', () => {
         [new Date().toISOString().split('T')[0]]: 10,
       };
 
-      const insights = computeAdvancedInsights(
-        checkin,
-        [checkin],
-        [],
-        [],
-        taskCompletions
-      );
+      const insights = computeAdvancedInsights(checkin, [checkin], [], [], taskCompletions);
 
       expect(typeof insights.productivity_correlation).toBe('number');
       expect(insights.productivity_correlation).toBeGreaterThanOrEqual(-1);
@@ -185,10 +174,7 @@ describe('Engine Advanced', () => {
 
     it('should identify top priority project', () => {
       const checkin = createCheckin('tranquilo', 'alta', 'leve');
-      const projects = [
-        createProject('Project A', 'active'),
-        createProject('Project B', 'active'),
-      ];
+      const projects = [createProject('Project A', 'active'), createProject('Project B', 'active')];
 
       const insights = computeAdvancedInsights(checkin, [checkin], [], projects);
 
@@ -214,7 +200,7 @@ describe('Engine Advanced', () => {
     it('should alert on spending anomalies', () => {
       const checkin = createCheckin('tranquilo', 'media', 'normal');
       const entries: FinancialEntry[] = [];
-      
+
       // Normal spending
       for (let i = 10; i < 15; i++) {
         entries.push(createEntry('saida', 1000, i));
@@ -232,7 +218,7 @@ describe('Engine Advanced', () => {
     it('should alert on increasing spending trend', () => {
       const checkin = createCheckin('tranquilo', 'media', 'normal');
       const entries: FinancialEntry[] = [];
-      
+
       // Increasing pattern
       for (let i = 0; i < 15; i++) {
         entries.push(createEntry('saida', 1000 + i * 100, 15 - i));
@@ -247,10 +233,7 @@ describe('Engine Advanced', () => {
 
     it('should not generate excessive alerts for healthy state', () => {
       const checkin = createCheckin('tranquilo', 'alta', 'leve');
-      const entries = [
-        createEntry('entrada', 100000, 10),
-        createEntry('saida', 30000, 5),
-      ];
+      const entries = [createEntry('entrada', 100000, 10), createEntry('saida', 30000, 5)];
 
       const insights = computeAdvancedInsights(checkin, [checkin], entries, []);
       const alerts = generateAdvancedAlerts(insights, 'test-user');
@@ -293,16 +276,9 @@ describe('Engine Advanced', () => {
     });
 
     it('should suggest rest when energy is low', () => {
-      const checkins = [
-        createCheckin('tranquilo', 'baixa', 'normal'),
-      ];
+      const checkins = [createCheckin('tranquilo', 'baixa', 'normal')];
 
-      const insights = computeAdvancedInsights(
-        checkins[0],
-        checkins,
-        [],
-        []
-      );
+      const insights = computeAdvancedInsights(checkins[0], checkins, [], []);
 
       const action = computeAdvancedActionMother(insights);
 
@@ -321,12 +297,7 @@ describe('Engine Advanced', () => {
 
       const entries = [createEntry('entrada', 100000, 5)];
 
-      const insights = computeAdvancedInsights(
-        checkins[0],
-        checkins,
-        entries,
-        []
-      );
+      const insights = computeAdvancedInsights(checkins[0], checkins, entries, []);
 
       const action = computeAdvancedActionMother(insights);
 
@@ -352,7 +323,7 @@ describe('Engine Advanced', () => {
       const entries = [createEntry('entrada', 100000, 5)];
 
       const insights = computeAdvancedInsights(checkin, [checkin], entries, []);
-      
+
       if (insights.health_score > 70) {
         const guidance = computeAdvancedGuidance(insights);
         expect(guidance.mode).toBe('DO');
@@ -362,7 +333,7 @@ describe('Engine Advanced', () => {
     it('should warn about increasing spending', () => {
       const checkin = createCheckin('tranquilo', 'media', 'normal');
       const entries: FinancialEntry[] = [];
-      
+
       for (let i = 0; i < 15; i++) {
         entries.push(createEntry('saida', 1000 + i * 100, 15 - i));
       }

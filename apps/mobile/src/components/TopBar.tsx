@@ -9,12 +9,7 @@ export interface TopBarProps {
   rightAction?: React.ReactNode;
 }
 
-export const TopBar: React.FC<TopBarProps> = ({
-  title,
-  subtitle,
-  leftAction,
-  rightAction,
-}) => {
+export const TopBar: React.FC<TopBarProps> = ({ title, subtitle, leftAction, rightAction }) => {
   return (
     <View style={styles.container}>
       <View style={styles.leftSection}>

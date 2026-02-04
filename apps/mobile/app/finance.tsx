@@ -106,16 +106,12 @@ export default function FinanceScreen() {
             >
               {formatCurrency(balance)}
             </Text>
-            <Text style={styles.metricHint}>
-              {balance >= 0 ? 'Positivo' : 'Negativo'}
-            </Text>
+            <Text style={styles.metricHint}>{balance >= 0 ? 'Positivo' : 'Negativo'}</Text>
           </ExecutiveCard>
 
           <ExecutiveCard elevated padding="lg" style={styles.summaryCard}>
             <Text style={styles.metricLabel}>PREVISÃO</Text>
-            <Text style={styles.metricValue}>
-              {forecast > 365 ? '∞' : `${forecast}d`}
-            </Text>
+            <Text style={styles.metricValue}>{forecast > 365 ? '∞' : `${forecast}d`}</Text>
             <Text style={styles.metricHint}>Runway</Text>
           </ExecutiveCard>
         </View>
@@ -143,9 +139,7 @@ export default function FinanceScreen() {
           <ExecutiveCard elevated padding="lg">
             <Text style={styles.insightLabel}>BURN RATE</Text>
             <Text style={styles.insightValue}>{formatCurrency(burnRate)}/dia</Text>
-            <Text style={styles.insightText}>
-              Taxa média de queima diária nos últimos 30 dias
-            </Text>
+            <Text style={styles.insightText}>Taxa média de queima diária nos últimos 30 dias</Text>
           </ExecutiveCard>
         )}
 
@@ -159,9 +153,7 @@ export default function FinanceScreen() {
                 <Text style={styles.anomalyDescription}>
                   {formatCurrency(anomaly.amount)}
                   {' - '}
-                  {anomaly.severity === 'high'
-                    ? 'muito acima da média'
-                    : 'acima do padrão'}
+                  {anomaly.severity === 'high' ? 'muito acima da média' : 'acima do padrão'}
                 </Text>
               </View>
             ))}
@@ -276,10 +268,7 @@ export default function FinanceScreen() {
                 {(type === 'entrada' ? CATEGORIES_ENTRADA : CATEGORIES_SAIDA).map((cat) => (
                   <TouchableOpacity
                     key={cat}
-                    style={[
-                      styles.categoryButton,
-                      category === cat && styles.categoryButtonActive,
-                    ]}
+                    style={[styles.categoryButton, category === cat && styles.categoryButtonActive]}
                     onPress={() => setCategory(cat)}
                     activeOpacity={0.7}
                   >

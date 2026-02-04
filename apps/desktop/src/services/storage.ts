@@ -28,7 +28,7 @@ export async function initStorage() {
   try {
     let dbPath: string;
     let adapter;
-    
+
     if (isTauri) {
       // Get app data directory from Tauri
       const { appDataDir } = await import('@tauri-apps/api/path');
@@ -42,7 +42,7 @@ export async function initStorage() {
       } catch (err) {
         // Directory may already exist
       }
-      
+
       adapter = new BetterSqliteAdapter();
     } else {
       // In browser mode, use mock database

@@ -11,16 +11,66 @@ export async function seedTestData(userId: string) {
 
   // Seed Check-ins (last 10 days with varied patterns)
   const checkins = [
-    { days: 0, caixa: 'tranquilo' as CaixaStatus, energia: 'alta' as Energia, pressao: 'normal' as Pressao },
-    { days: 1, caixa: 'tranquilo' as CaixaStatus, energia: 'media' as Energia, pressao: 'leve' as Pressao },
-    { days: 2, caixa: 'atencao' as CaixaStatus, energia: 'media' as Energia, pressao: 'normal' as Pressao },
-    { days: 3, caixa: 'tranquilo' as CaixaStatus, energia: 'alta' as Energia, pressao: 'leve' as Pressao },
-    { days: 4, caixa: 'tranquilo' as CaixaStatus, energia: 'baixa' as Energia, pressao: 'alta' as Pressao },
-    { days: 5, caixa: 'atencao' as CaixaStatus, energia: 'baixa' as Energia, pressao: 'alta' as Pressao },
-    { days: 6, caixa: 'critico' as CaixaStatus, energia: 'baixa' as Energia, pressao: 'alta' as Pressao },
-    { days: 7, caixa: 'atencao' as CaixaStatus, energia: 'media' as Energia, pressao: 'normal' as Pressao },
-    { days: 8, caixa: 'tranquilo' as CaixaStatus, energia: 'alta' as Energia, pressao: 'leve' as Pressao },
-    { days: 9, caixa: 'tranquilo' as CaixaStatus, energia: 'alta' as Energia, pressao: 'normal' as Pressao },
+    {
+      days: 0,
+      caixa: 'tranquilo' as CaixaStatus,
+      energia: 'alta' as Energia,
+      pressao: 'normal' as Pressao,
+    },
+    {
+      days: 1,
+      caixa: 'tranquilo' as CaixaStatus,
+      energia: 'media' as Energia,
+      pressao: 'leve' as Pressao,
+    },
+    {
+      days: 2,
+      caixa: 'atencao' as CaixaStatus,
+      energia: 'media' as Energia,
+      pressao: 'normal' as Pressao,
+    },
+    {
+      days: 3,
+      caixa: 'tranquilo' as CaixaStatus,
+      energia: 'alta' as Energia,
+      pressao: 'leve' as Pressao,
+    },
+    {
+      days: 4,
+      caixa: 'tranquilo' as CaixaStatus,
+      energia: 'baixa' as Energia,
+      pressao: 'alta' as Pressao,
+    },
+    {
+      days: 5,
+      caixa: 'atencao' as CaixaStatus,
+      energia: 'baixa' as Energia,
+      pressao: 'alta' as Pressao,
+    },
+    {
+      days: 6,
+      caixa: 'critico' as CaixaStatus,
+      energia: 'baixa' as Energia,
+      pressao: 'alta' as Pressao,
+    },
+    {
+      days: 7,
+      caixa: 'atencao' as CaixaStatus,
+      energia: 'media' as Energia,
+      pressao: 'normal' as Pressao,
+    },
+    {
+      days: 8,
+      caixa: 'tranquilo' as CaixaStatus,
+      energia: 'alta' as Energia,
+      pressao: 'leve' as Pressao,
+    },
+    {
+      days: 9,
+      caixa: 'tranquilo' as CaixaStatus,
+      energia: 'alta' as Energia,
+      pressao: 'normal' as Pressao,
+    },
   ];
 
   for (const { days, caixa, energia, pressao } of checkins) {
@@ -42,7 +92,7 @@ export async function seedTestData(userId: string) {
     { days: 8, type: 'entrada', value: 150000, category: 'Freelance' },
     { days: 15, type: 'entrada', value: 80000, category: 'Freelance' },
     { days: 22, type: 'entrada', value: 30000, category: 'Investimentos' },
-    
+
     // Saídas normais
     { days: 2, type: 'saida', value: 120000, category: 'Moradia' },
     { days: 3, type: 'saida', value: 35000, category: 'Alimentação' },
@@ -57,7 +107,7 @@ export async function seedTestData(userId: string) {
     { days: 14, type: 'saida', value: 42000, category: 'Alimentação' },
     { days: 16, type: 'saida', value: 18000, category: 'Transporte' },
     { days: 18, type: 'saida', value: 55000, category: 'Saúde' },
-    
+
     // ANOMALIAS - valores muito acima da média para detectar
     { days: 19, type: 'saida', value: 180000, category: 'Alimentação' }, // 4x média
     { days: 20, type: 'saida', value: 85000, category: 'Lazer' }, // 3x média

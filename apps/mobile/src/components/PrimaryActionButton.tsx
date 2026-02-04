@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  StyleSheet,
-  ViewStyle,
-  Animated,
-  Pressable,
-} from 'react-native';
+import { Text, StyleSheet, ViewStyle, Animated, Pressable } from 'react-native';
 import { colors, borderRadius, spacing, typography, shadows, animations } from '../theme';
 
 export interface PrimaryActionButtonProps {

@@ -9,20 +9,24 @@ Um aplicativo multiplataforma (Windows, macOS, Linux, Android, iOS) que ajuda vo
 ## 🎯 Características Principais
 
 ### ✅ Multiplataforma
+
 - **Desktop**: Windows, macOS, Linux (via Tauri)
 - **Mobile**: Android, iOS (via Expo/React Native)
 
 ### 🔒 Offline-First
+
 - Todos os dados armazenados localmente via SQLite
 - Funciona completamente sem conexão à internet
 - Zero dependência de servidores externos
 
 ### 🧠 Decisões Inteligentes
+
 - **Motor de Regras**: Avalia seu estado operacional em tempo real
 - **Alertas Contextuais**: Notificações baseadas em finanças, energia e pressão
 - **Orientação Acionável**: Sugestões práticas com próximos passos
 
 ### 📊 Gestão Completa
+
 - **Check-in Diário**: Rastreie sua energia, pressão e contexto (Caixa/Não-Caixa)
 - **Finanças**: Controle entradas e saídas com categorização automática
 - **Projetos**: Gerencie projetos com status, prioridades e ações
@@ -33,6 +37,7 @@ Um aplicativo multiplataforma (Windows, macOS, Linux, Android, iOS) que ajuda vo
 ## 🛠️ Stack Tecnológico
 
 ### Desktop (Tauri)
+
 - **Frontend**: React 18 + TypeScript + Vite 5
 - **Backend**: Rust (Tauri 1.5)
 - **Storage**: SQLite via better-sqlite3
@@ -40,6 +45,7 @@ Um aplicativo multiplataforma (Windows, macOS, Linux, Android, iOS) que ajuda vo
 - **State**: Zustand 4
 
 ### Mobile (React Native)
+
 - **Framework**: Expo ~50.0
 - **Language**: TypeScript
 - **Routing**: Expo Router (file-based)
@@ -47,6 +53,7 @@ Um aplicativo multiplataforma (Windows, macOS, Linux, Android, iOS) que ajuda vo
 - **Storage**: SQLite via expo-sqlite
 
 ### Shared Packages
+
 - **@assistente/core**: Entidades, tipos e motor de regras
 - **@assistente/storage**: Camada de abstração SQLite + repositórios
 - **@assistente/ui**: Componentes compartilhados (futuro)
@@ -101,6 +108,7 @@ assistente/
 ### Pré-requisitos
 
 #### Para Desktop:
+
 - **Node.js** 18+ e **pnpm** 8+
 - **Rust** (via [rustup](https://rustup.rs/))
 - **Sistema operacional específico**:
@@ -109,6 +117,7 @@ assistente/
   - **Linux**: libwebkit2gtk, libgtk-3, etc.
 
 #### Para Mobile:
+
 - **Node.js** 18+ e **pnpm** 8+
 - **Expo CLI**: `npm install -g eas-cli`
 - **Para iOS**: macOS com Xcode (simulador local) ou conta Expo (EAS build na nuvem)
@@ -167,6 +176,7 @@ pnpm tauri build
 ### Mobile
 
 **Primeiro configure EAS**:
+
 ```bash
 npm install -g eas-cli
 eas login
@@ -175,6 +185,7 @@ eas build:configure
 ```
 
 **Builds**:
+
 ```bash
 # Android (APK para teste ou AAB para Play Store)
 eas build --platform android --profile production
@@ -198,6 +209,7 @@ Atualmente os ícones são **placeholders**. Para gerar assets reais:
 2. Siga o [ASSETS_GUIDE.md](ASSETS_GUIDE.md) para gerar todos os tamanhos
 
 **Ferramentas Recomendadas**:
+
 - **Mobile**: [icon.kitchen](https://icon.kitchen/)
 - **Desktop**: `@tauri-apps/cli icon` (CLI)
 - **Favicon**: [realfavicongenerator.net](https://realfavicongenerator.net/)
@@ -207,16 +219,19 @@ Atualmente os ícones são **placeholders**. Para gerar assets reais:
 ## 🏪 Submissão às Lojas
 
 ### Apple App Store
+
 1. Conta Apple Developer ($99/ano)
 2. Configurar App Store Connect
 3. `eas submit --platform ios --profile production`
 
 ### Google Play Store
+
 1. Conta Google Play Console ($25 único)
 2. Criar aplicativo + listing
 3. `eas submit --platform android --profile production`
 
 ### Microsoft Store
+
 1. Conta Microsoft Partner Center ($19-99/ano)
 2. Upload do MSI/MSIX
 3. Certificação
@@ -228,6 +243,7 @@ Atualmente os ícones são **placeholders**. Para gerar assets reais:
 ## 🧪 Testes
 
 ### Unit Tests (Jest)
+
 ```bash
 # Todos os testes
 pnpm test
@@ -246,6 +262,7 @@ pnpm test -- --watch
 ```
 
 ### Type Check
+
 ```bash
 # Todos os pacotes
 pnpm typecheck
@@ -261,19 +278,25 @@ pnpm --filter desktop typecheck
 O sistema de decisões inteligentes é baseado em 3 pilares:
 
 ### 1. Estado Operacional
+
 Calculado a partir do check-in diário:
+
 - **Verde**: Energia alta + pressão controlada + caixa OK
 - **Amarelo**: Algum indicador moderado
 - **Vermelho**: Energia baixa ou pressão muito alta ou caixa crítico
 
 ### 2. Alertas Contextuais
+
 Gerados automaticamente com base em:
+
 - Finanças (gastos altos, saldo baixo, categorias problemáticas)
 - Projetos (prazos próximos, projetos travados)
 - Check-ins (fadiga acumulada, pressão persistente)
 
 ### 3. Orientação Acionável
+
 Sugestões práticas como:
+
 - "Priorize tarefas de alto impacto e delegue o resto"
 - "Revise gastos da categoria 'Alimentação' (R$ 450 esta semana)"
 - "Projeto X está 3 dias sem atualização - revisar status?"
@@ -366,6 +389,7 @@ Todos implementam padrão Repository com tipo genérico `Repository<T>`:
 ## 🔧 Scripts Disponíveis
 
 ### Root
+
 - `pnpm dev:mobile` - Inicia Metro bundler (mobile)
 - `pnpm dev:desktop` - Inicia Vite + Tauri (desktop)
 - `pnpm test` - Roda todos os testes
@@ -374,18 +398,21 @@ Todos implementam padrão Repository com tipo genérico `Repository<T>`:
 - `pnpm format` - Prettier em todos os arquivos
 
 ### Mobile (`apps/mobile/`)
+
 - `pnpm start` - Metro bundler
 - `pnpm ios` - Roda no simulador iOS
 - `pnpm android` - Roda no emulador Android
 - `pnpm web` - Roda no navegador
 
 ### Desktop (`apps/desktop/`)
+
 - `pnpm tauri:dev` - Dev mode com Tauri
 - `pnpm tauri build` - Build de produção
 - `pnpm dev` - Apenas Vite (sem Tauri)
 - `pnpm build` - Apenas build do frontend
 
 ### Pacotes (`packages/*/`)
+
 - `pnpm test` - Testes unitários
 - `pnpm build` - Build do pacote
 
@@ -394,6 +421,7 @@ Todos implementam padrão Repository com tipo genérico `Repository<T>`:
 ## 🐛 Troubleshooting
 
 ### Desktop não inicia
+
 ```bash
 # Reinstale dependências nativas
 cd packages/storage
@@ -405,6 +433,7 @@ rustc --version
 ```
 
 ### Mobile com erro de cache
+
 ```bash
 cd apps/mobile
 pnpm start -- --reset-cache
@@ -413,6 +442,7 @@ pnpm install
 ```
 
 ### Testes falhando
+
 ```bash
 # Limpe tudo
 rm -rf node_modules apps/*/node_modules packages/*/node_modules
@@ -421,6 +451,7 @@ pnpm test
 ```
 
 ### Build de produção falha
+
 ```bash
 # Desktop: Verifique se ícones existem
 ls apps/desktop/src-tauri/icons/
@@ -436,6 +467,7 @@ eas build:configure
 ## 📈 Roadmap (Futuro)
 
 ### Funcionalidades Planejadas
+
 - [ ] **Decisões**: Registro de decisões importantes com contexto
 - [ ] **Notificações**: Alertas push para deadlines e check-ins
 - [ ] **Sincronização**: Sync opcional via servidor próprio (self-hosted)
@@ -447,6 +479,7 @@ eas build:configure
 - [ ] **Detecção de Projetos Travados**: Alerta automático para projetos sem atualização
 
 ### Melhorias Técnicas
+
 - [ ] **E2E Tests**: Detox (mobile) + Playwright (desktop)
 - [ ] **CI/CD**: GitHub Actions para builds automáticos
 - [ ] **Storybook**: Documentação de componentes
@@ -464,6 +497,7 @@ eas build:configure
 5. Abra um Pull Request
 
 ### Guidelines
+
 - Execute `pnpm typecheck` e `pnpm test` antes de commitar
 - Mantenha cobertura de testes > 80%
 - Siga os padrões de código existentes (Prettier + ESLint)
@@ -488,6 +522,7 @@ MIT License - Veja [LICENSE](LICENSE) para detalhes.
 ## 🙏 Agradecimentos
 
 Construído com:
+
 - [Tauri](https://tauri.app/) - Desktop framework
 - [Expo](https://expo.dev/) - Mobile framework
 - [React](https://react.dev/) - UI library
@@ -500,5 +535,6 @@ Construído com:
 
 **Versão**: 1.0.0  
 **Última Atualização**: Fevereiro 2, 2026
+
 - [ ] CP5: Desktop app implementation
 - [ ] CP6: Store-ready builds

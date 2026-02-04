@@ -2,6 +2,7 @@
   "expo": {
     "name": "Assistente Operacional",
     "slug": "assistente-operacional",
+    "owner": "eduardobackstage",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
@@ -16,24 +17,16 @@
       "buildNumber": "1",
       "infoPlist": {
         "NSCameraUsageDescription": "Permite tirar fotos para anexar em projetos ou tarefas.",
-        "NSPhotoLibraryUsageDescription": "Permite selecionar fotos da galeria para anexar em projetos ou tarefas."
+        "NSPhotoLibraryUsageDescription": "Permite selecionar fotos da galeria para anexar em projetos ou tarefas.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#0F1115"
-      },
       "package": "com.assistente.operacional",
       "versionCode": 1,
-      "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE"
-      ]
+      "permissions": ["CAMERA", "READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"]
     },
     "web": {
-      "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
     "plugins": [
@@ -42,7 +35,6 @@
         "expo-splash-screen",
         {
           "backgroundColor": "#0F1115",
-          "image": "./assets/splash.png",
           "imageWidth": 200
         }
       ]
@@ -53,7 +45,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "YOUR_EAS_PROJECT_ID_HERE"
+        "projectId": "e817eecb-6004-4877-aded-701efc777d17"
       }
     }
   }

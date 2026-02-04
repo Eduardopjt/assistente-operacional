@@ -21,7 +21,12 @@ export interface LogEntry {
 class Logger {
   private isDev = process.env.NODE_ENV !== 'production';
 
-  private formatEntry(level: LogLevel, message: string, context?: Record<string, unknown>, error?: Error): LogEntry {
+  private formatEntry(
+    level: LogLevel,
+    message: string,
+    context?: Record<string, unknown>,
+    error?: Error
+  ): LogEntry {
     const entry: LogEntry = {
       timestamp: new Date().toISOString(),
       level,
@@ -43,14 +48,19 @@ class Logger {
     return entry;
   }
 
-  private log(level: LogLevel, message: string, context?: Record<string, unknown>, error?: Error): void {
+  private log(
+    level: LogLevel,
+    message: string,
+    context?: Record<string, unknown>,
+    error?: Error
+  ): void {
     const entry = this.formatEntry(level, message, context, error);
 
     if (this.isDev) {
       // Development: readable console output
       const prefix = `[${level.toUpperCase()}]`;
       const timestamp = new Date(entry.timestamp).toLocaleTimeString();
-      
+
       switch (level) {
         case 'debug':
           console.debug(prefix, timestamp, message, context || '', error || '');

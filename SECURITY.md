@@ -41,6 +41,7 @@ We take security seriously. If you discover a security vulnerability, please fol
 ### Bug Bounty
 
 Currently, we don't have a formal bug bounty program. However, we deeply appreciate security researchers and will:
+
 - Credit you in release notes (if desired)
 - Provide recognition in our Hall of Fame
 - Consider rewards for critical findings
@@ -52,16 +53,19 @@ Currently, we don't have a formal bug bounty program. However, we deeply appreci
 ### For Users
 
 **Data Protection**:
+
 - All data is stored locally (offline-first)
 - No network connections by default
 - Consider enabling device encryption
 
 **Mobile**:
+
 - Enable biometric lock (optional feature)
 - Use strong device passcode
 - Keep app updated
 
 **Desktop**:
+
 - Use OS-level disk encryption (BitLocker/FileVault)
 - Keep Rust/Node.js updated for security patches
 - Run from trusted sources only
@@ -69,6 +73,7 @@ Currently, we don't have a formal bug bounty program. However, we deeply appreci
 ### For Developers
 
 **Dependencies**:
+
 ```bash
 # Check for vulnerabilities
 pnpm audit
@@ -78,10 +83,12 @@ pnpm update --latest
 ```
 
 **Code Signing**:
+
 - Desktop: Sign binaries with valid certificates
 - Mobile: Use proper provisioning profiles
 
 **Environment Variables**:
+
 - Never commit `.env` files
 - Use secrets management for CI/CD
 - Rotate API keys regularly
@@ -93,6 +100,7 @@ pnpm update --latest
 ### Current Implementation
 
 ✅ **What We Do**:
+
 - Local-only data storage (no network calls)
 - No external analytics or tracking
 - No sensitive data in logs
@@ -100,6 +108,7 @@ pnpm update --latest
 - Type-safe codebase (TypeScript strict mode)
 
 ⚠️ **What We Don't Do (Yet)**:
+
 - Database encryption (SQLite is plain text)
 - Code obfuscation
 - Certificate pinning
@@ -108,18 +117,20 @@ pnpm update --latest
 ### Recommended Hardening (Future)
 
 1. **Database Encryption**:
+
    ```bash
    # Desktop: Use SQLCipher instead of better-sqlite3
    pnpm add @journeyapps/sqlcipher
-   
+
    # Mobile: Enable encryption in expo-sqlite
    ```
 
 2. **Secure Storage for Secrets**:
+
    ```typescript
    // Mobile: Use expo-secure-store
    import * as SecureStore from 'expo-secure-store';
-   
+
    // Desktop: Use keytar or OS keychain
    ```
 
@@ -133,6 +144,7 @@ pnpm update --latest
 ## Vulnerability History
 
 ### 1.0.0 (2026-02-02)
+
 No known vulnerabilities at release.
 
 ---
@@ -148,6 +160,7 @@ No known vulnerabilities at release.
 ## Responsible Disclosure
 
 We follow coordinated vulnerability disclosure:
+
 1. Researcher reports issue privately
 2. We confirm and develop fix
 3. Researcher gets credit (if desired)

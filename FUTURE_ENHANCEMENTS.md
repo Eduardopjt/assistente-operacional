@@ -15,17 +15,17 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const SHORTCUTS = {
-  'Ctrl+1': '/',              // Home
-  'Ctrl+2': '/checkin',       // Check-in
-  'Ctrl+3': '/dashboard',     // Dashboard
-  'Ctrl+4': '/finance',       // Finance
-  'Ctrl+5': '/projects',      // Projects
-  'Ctrl+6': '/history',       // History
-  'Ctrl+N': '/checkin',       // New check-in
+  'Ctrl+1': '/', // Home
+  'Ctrl+2': '/checkin', // Check-in
+  'Ctrl+3': '/dashboard', // Dashboard
+  'Ctrl+4': '/finance', // Finance
+  'Ctrl+5': '/projects', // Projects
+  'Ctrl+6': '/history', // History
+  'Ctrl+N': '/checkin', // New check-in
   'Ctrl+Shift+F': '/finance', // New finance entry
-  'Ctrl+Shift+P': '/projects',// New project
-  'Ctrl+,': '/settings',      // Settings (future)
-  'Ctrl+Q': null,             // Quit (Tauri API)
+  'Ctrl+Shift+P': '/projects', // New project
+  'Ctrl+,': '/settings', // Settings (future)
+  'Ctrl+Q': null, // Quit (Tauri API)
 };
 
 export function useKeyboardShortcuts() {
@@ -35,7 +35,7 @@ export function useKeyboardShortcuts() {
     const handler = (e: KeyboardEvent) => {
       const key = `${e.ctrlKey ? 'Ctrl+' : ''}${e.shiftKey ? 'Shift+' : ''}${e.key}`;
       const route = SHORTCUTS[key];
-      
+
       if (route !== undefined) {
         e.preventDefault();
         if (route === null) {
@@ -54,6 +54,7 @@ export function useKeyboardShortcuts() {
 ```
 
 **Usage in App.tsx**:
+
 ```typescript
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 
@@ -64,6 +65,7 @@ function App() {
 ```
 
 **Benefits**:
+
 - Faster navigation for power users
 - No mouse required for common actions
 - Industry-standard shortcuts (Ctrl+Number for tabs)
@@ -127,7 +129,7 @@ export async function restoreWindowState(): Promise<void> {
 
   await appWindow.setSize({ width: state.width, height: state.height });
   await appWindow.setPosition({ x: state.x, y: state.y });
-  
+
   if (state.maximized) {
     await appWindow.maximize();
   }
@@ -135,6 +137,7 @@ export async function restoreWindowState(): Promise<void> {
 ```
 
 **Usage in App.tsx**:
+
 ```typescript
 import { restoreWindowState, saveWindowState } from './services/window-state';
 
@@ -147,14 +150,15 @@ function App() {
     const unlisten2 = appWindow.onMoved(() => saveWindowState());
 
     return () => {
-      unlisten.then(fn => fn());
-      unlisten2.then(fn => fn());
+      unlisten.then((fn) => fn());
+      unlisten2.then((fn) => fn());
     };
   }, []);
 }
 ```
 
 **Benefits**:
+
 - Remembers user's preferred window layout
 - Smoother UX (no need to resize every time)
 - Works across multiple monitors
@@ -177,7 +181,7 @@ fn main() {
   let check_in = CustomMenuItem::new("checkin".to_string(), "Quick Check-in");
   let dashboard = CustomMenuItem::new("dashboard".to_string(), "Dashboard");
   let quit = CustomMenuItem::new("quit".to_string(), "Quit");
-  
+
   let tray_menu = SystemTrayMenu::new()
     .add_item(check_in)
     .add_item(dashboard)
@@ -217,6 +221,7 @@ fn main() {
 ```
 
 **Update tauri.conf.json**:
+
 ```json
 {
   "tauri": {
@@ -229,6 +234,7 @@ fn main() {
 ```
 
 **Benefits**:
+
 - Quick access without opening full window
 - Always available in system tray
 - Common pattern for productivity apps
@@ -311,6 +317,7 @@ export async function scheduleProjectDeadline(projectId: string, title: string, 
 ```
 
 **Usage**:
+
 ```typescript
 // apps/mobile/app/_layout.tsx
 import { useEffect } from 'react';
@@ -318,7 +325,7 @@ import { requestPermissions, scheduleCheckinReminder } from '../services/notific
 
 export default function RootLayout() {
   useEffect(() => {
-    requestPermissions().then(granted => {
+    requestPermissions().then((granted) => {
       if (granted) {
         scheduleCheckinReminder();
       }
@@ -328,6 +335,7 @@ export default function RootLayout() {
 ```
 
 **Benefits**:
+
 - Increases daily check-in adherence
 - Prevents missed project deadlines
 - Local-only (no server required)
@@ -376,7 +384,8 @@ export async function isBiometricEnabled(): Promise<boolean> {
 }
 ```
 
-**Usage in _layout.tsx**:
+**Usage in \_layout.tsx**:
+
 ```typescript
 export default function RootLayout() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -404,6 +413,7 @@ export default function RootLayout() {
 ```
 
 **Benefits**:
+
 - Privacy protection for sensitive financial data
 - Fast unlock with Face ID/Touch ID/fingerprint
 - Optional (user can disable)
@@ -420,6 +430,7 @@ export default function RootLayout() {
 Currently missing from storage layer - track important decisions:
 
 **Add to schema**:
+
 ```sql
 CREATE TABLE decisions (
   id TEXT PRIMARY KEY,
@@ -437,31 +448,43 @@ CREATE TABLE decisions (
 ```
 
 **Repository**:
+
 ```typescript
 // packages/storage/src/repositories/DecisionRepository.ts
 export class DecisionRepository implements Repository<Decision> {
   // Standard CRUD...
-  
+
   getByUser(userId: string): Decision[] {
-    return this.db.prepare(`
+    return this.db
+      .prepare(
+        `
       SELECT * FROM decisions
       WHERE user_id = ? AND status != 'abandoned'
       ORDER BY created_at DESC
-    `).all(userId).map(row => this.mapRow(row));
+    `
+      )
+      .all(userId)
+      .map((row) => this.mapRow(row));
   }
 
   getPendingReviews(userId: string): Decision[] {
     const today = new Date().toISOString().split('T')[0];
-    return this.db.prepare(`
+    return this.db
+      .prepare(
+        `
       SELECT * FROM decisions
       WHERE user_id = ? AND review_date <= ? AND status = 'active'
       ORDER BY review_date ASC
-    `).all(userId, today).map(row => this.mapRow(row));
+    `
+      )
+      .all(userId, today)
+      .map((row) => this.mapRow(row));
   }
 }
 ```
 
 **UI Screen** (History tab):
+
 ```typescript
 // Add "Decisões" tab alongside Checkins/Alerts
 const decisions = decisionRepo.getByUser(userId);
@@ -481,6 +504,7 @@ const decisions = decisionRepo.getByUser(userId);
 ```
 
 **Benefits**:
+
 - Tracks important life/business decisions
 - Scheduled reviews to evaluate outcomes
 - Provides context for future reference
@@ -525,19 +549,21 @@ export function detectStalledProjects(projects: Project[]): Alert[] {
 ```
 
 **Integration in app-store.ts**:
+
 ```typescript
 refreshDashboard() {
   // ... existing code ...
-  
+
   const projects = projectRepo.getByUser(userId);
   const stalledAlerts = detectStalledProjects(projects);
-  
+
   // Save new alerts
   stalledAlerts.forEach(alert => alertRepo.create(alert));
 }
 ```
 
 **Benefits**:
+
 - Prevents projects from being forgotten
 - Encourages regular progress updates
 - Identifies bottlenecks early
@@ -594,7 +620,7 @@ export class BackupService {
 
     // Insert backup data
     const insertUser = this.db.prepare('INSERT INTO users VALUES (?, ?, ?, ?)');
-    data.users.forEach(u => insertUser.run(u.id, u.name, u.email, u.created_at));
+    data.users.forEach((u) => insertUser.run(u.id, u.name, u.email, u.created_at));
 
     // ... repeat for other tables
   }
@@ -602,6 +628,7 @@ export class BackupService {
 ```
 
 **Desktop UI** (Settings screen):
+
 ```typescript
 import { save, open } from '@tauri-apps/api/dialog';
 import { writeTextFile, readTextFile } from '@tauri-apps/api/fs';
@@ -634,6 +661,7 @@ async function handleImport() {
 ```
 
 **Mobile UI** (use expo-file-system + expo-sharing):
+
 ```typescript
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
@@ -649,6 +677,7 @@ async function handleExport() {
 ```
 
 **Benefits**:
+
 - User control over their data
 - Easy migration to new device
 - Peace of mind (backup before major changes)
@@ -692,6 +721,7 @@ function FinanceScreen() {
 ```
 
 **Benefits**:
+
 - Smooth scrolling with 1000+ items
 - Reduced memory usage
 - Better FPS on older devices
@@ -714,6 +744,7 @@ CREATE INDEX idx_alerts_user_resolved ON alerts(user_id, resolved);
 ```
 
 **Benefits**:
+
 - Faster dashboard queries (especially with large datasets)
 - Better performance on lower-end devices
 - Minimal storage overhead
@@ -757,6 +788,7 @@ test('complete check-in flow', async ({ page }) => {
 ```
 
 **Benefits**:
+
 - Catch regressions before release
 - Verify critical flows work end-to-end
 - Confidence in UI changes
@@ -766,17 +798,20 @@ test('complete check-in flow', async ({ page }) => {
 ## Implementation Priority
 
 ### Phase 1 (High Priority)
+
 1. **Decision Logging** (CP7?) - Core feature gap
 2. **Push Notifications (Mobile)** - Increases user engagement
 3. **Stalled Project Detection** - Enhances rules engine
 
 ### Phase 2 (Medium Priority)
+
 4. **Keyboard Shortcuts (Desktop)** - Power user feature
 5. **Window State Persistence (Desktop)** - UX improvement
 6. **Data Export/Import** - User control & safety
 7. **Query Indexing** - Performance at scale
 
 ### Phase 3 (Low Priority)
+
 8. **System Tray Integration (Desktop)** - Nice-to-have
 9. **Biometric Auth (Mobile)** - Optional security
 10. **Virtual Scrolling (Mobile)** - Only needed at scale

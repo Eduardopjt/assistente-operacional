@@ -135,14 +135,10 @@ export function assessOverload(
 
     if (projectCount > 3) {
       shouldPauseProjects = true;
-      recommendations.push(
-        `Pausar ${projectCount - 3} projeto(s) para reduzir carga cognitiva`
-      );
+      recommendations.push(`Pausar ${projectCount - 3} projeto(s) para reduzir carga cognitiva`);
 
       // Suggest pausing projects without next_action (lower priority)
-      const lowPriorityProjects = activeProjects
-        .filter((p) => !p.next_action)
-        .map((p) => p.id);
+      const lowPriorityProjects = activeProjects.filter((p) => !p.next_action).map((p) => p.id);
       projectsToPause.push(...lowPriorityProjects.slice(0, projectCount - 3));
     }
 

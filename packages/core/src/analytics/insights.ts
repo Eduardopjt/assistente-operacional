@@ -183,8 +183,8 @@ export function computeOperationalInsights(
   // Overall health score (weighted average)
   const health_score = Math.round(
     finance.health_score * 0.5 + // 50% finance
-    (state === 'ATTACK' ? 100 : state === 'CAUTION' ? 60 : 20) * 0.3 + // 30% state
-    calculateEnergyScore(checkin) * 0.2 // 20% energy
+      (state === 'ATTACK' ? 100 : state === 'CAUTION' ? 60 : 20) * 0.3 + // 30% state
+      calculateEnergyScore(checkin) * 0.2 // 20% energy
   );
 
   // Top priority project
@@ -252,7 +252,9 @@ function computeStateFromCheckin(checkin: DailyCheckin): 'CRITICAL' | 'CAUTION' 
 
 function calculateEnergyStreak(checkins: DailyCheckin[]): number {
   let streak = 0;
-  const sorted = [...checkins].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const sorted = [...checkins].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
   for (const c of sorted) {
     if (c.energia === 'alta' || c.energia === 'media') {

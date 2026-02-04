@@ -16,7 +16,7 @@ export default defineConfig({
     sourcemap: process.env.TAURI_DEBUG === 'true',
   },
   define: {
-    '__TAURI__': false,
+    __TAURI__: false,
   },
   optimizeDeps: {
     exclude: ['expo-sqlite', 'react-native', 'better-sqlite3'],

@@ -102,9 +102,7 @@ export default function ProjectsScreen() {
             <span className="stat-label">Pausados</span>
           </div>
           <div className="stat-card">
-            <span className="stat-value">
-              {projects.filter((p) => p.status === 'done').length}
-            </span>
+            <span className="stat-value">{projects.filter((p) => p.status === 'done').length}</span>
             <span className="stat-label">Concluídos</span>
           </div>
         </div>
@@ -118,7 +116,11 @@ export default function ProjectsScreen() {
           ) : (
             <div className="projects-grid">
               {activeProjects.map((project) => (
-                <div key={project.id} className="project-card" onClick={() => openEditModal(project)}>
+                <div
+                  key={project.id}
+                  className="project-card"
+                  onClick={() => openEditModal(project)}
+                >
                   <div className="project-header">
                     <span className="project-name">{project.name}</span>
                     <div className="status-badge active">ATIVO</div>
@@ -143,7 +145,11 @@ export default function ProjectsScreen() {
               {otherProjects.map((project) => {
                 const statusInfo = STATUS_OPTIONS.find((s) => s.value === project.status)!;
                 return (
-                  <div key={project.id} className="project-card" onClick={() => openEditModal(project)}>
+                  <div
+                    key={project.id}
+                    className="project-card"
+                    onClick={() => openEditModal(project)}
+                  >
                     <div className="project-header">
                       <span className="project-name">{project.name}</span>
                       <div className="status-badge" style={{ color: statusInfo.color }}>
@@ -193,7 +199,11 @@ export default function ProjectsScreen() {
                   className={`status-button ${status === option.value ? 'active' : ''}`}
                   style={
                     status === option.value
-                      ? { backgroundColor: option.color + '20', borderColor: option.color, color: option.color }
+                      ? {
+                          backgroundColor: option.color + '20',
+                          borderColor: option.color,
+                          color: option.color,
+                        }
                       : {}
                   }
                   onClick={() => setStatus(option.value)}

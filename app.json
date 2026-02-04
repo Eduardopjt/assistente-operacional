@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "e817eecb-6004-4877-aded-701efc777d17"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.eduardobackstage.assistenteoperacional"
+    }
+  }
+}

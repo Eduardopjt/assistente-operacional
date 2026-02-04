@@ -28,7 +28,7 @@ export class QueryCache {
    */
   get<T>(key: string): T | null {
     const entry = this.cache.get(key);
-    
+
     if (!entry) {
       this.misses++;
       return null;
@@ -72,7 +72,7 @@ export class QueryCache {
     // Convert wildcard pattern to regex
     const regexPattern = pattern.replace(/\*/g, '.*');
     const regex = new RegExp(`^${regexPattern}`);
-    
+
     for (const key of this.cache.keys()) {
       if (regex.test(key)) {
         this.cache.delete(key);

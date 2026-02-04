@@ -40,12 +40,7 @@ export function SegmentedControl<T = string>({
             onPress={() => onChange(option.value)}
             activeOpacity={0.7}
           >
-            <Text
-              style={[
-                styles.segmentText,
-                isSelected && styles.segmentTextSelected,
-              ]}
-            >
+            <Text style={[styles.segmentText, isSelected && styles.segmentTextSelected]}>
               {option.label}
             </Text>
           </TouchableOpacity>

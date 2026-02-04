@@ -24,8 +24,24 @@ describe('assessOverload', () => {
     }));
 
     const projects: Project[] = [
-      { id: '1', user_id: 'user1', name: 'P1', status: 'active', objective: 'Test', created_at: new Date(), updated_at: new Date() },
-      { id: '2', user_id: 'user1', name: 'P2', status: 'active', objective: 'Test', created_at: new Date(), updated_at: new Date() },
+      {
+        id: '1',
+        user_id: 'user1',
+        name: 'P1',
+        status: 'active',
+        objective: 'Test',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        id: '2',
+        user_id: 'user1',
+        name: 'P2',
+        status: 'active',
+        objective: 'Test',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
     ];
 
     const assessment = assessOverload(checkins, projects);
@@ -114,9 +130,7 @@ describe('assessOverload', () => {
 
     const assessment = assessOverload(checkins, []);
 
-    const consecutiveFactor = assessment.factors.find(
-      (f) => f.type === 'consecutive_bad_days'
-    );
+    const consecutiveFactor = assessment.factors.find((f) => f.type === 'consecutive_bad_days');
     expect(consecutiveFactor).toBeDefined();
   });
 
