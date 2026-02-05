@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "Assistente Operacional",
-    "slug": "assistente-operacional",
+    "name": "Focus Assistant",
+    "slug": "focus-assistant",
     "owner": "eduardobackstage",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "splash": {
