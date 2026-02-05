@@ -1,2 +1,0 @@
-# Placeholder adaptive icon
-# Android adaptive icon foreground (1024x1024)

@@ -1,10 +1,16 @@
 import { View, Text, StyleSheet } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>🎯 Assistente Operacional</Text>
-      <Text style={styles.subtitle}>Pronto para começar</Text>
+      <StatusBar style="light" />
+      <View style={styles.content}>
+        <Text style={styles.emoji}>🚧</Text>
+        <Text style={styles.title}>Em Construção</Text>
+        <Text style={styles.subtitle}>Assistente de Agenda e Finanças</Text>
+        <Text style={styles.description}>Central de gastos básica</Text>
+      </View>
     </View>
   );
 }
@@ -12,18 +18,34 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0F1115',
+    backgroundColor: '#0a0a0a',
+  },
+  content: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 24,
   },
-  text: {
-    fontSize: 32,
+  emoji: {
+    fontSize: 80,
+    marginBottom: 24,
+  },
+  title: {
+    fontSize: 36,
     fontWeight: '700',
-    color: '#FFFFFF',
-    marginBottom: 8,
+    color: '#ffffff',
+    marginBottom: 12,
+    textAlign: 'center',
   },
   subtitle: {
-    fontSize: 16,
-    color: '#9CA3AF',
+    fontSize: 18,
+    color: '#a0a0a0',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  description: {
+    fontSize: 14,
+    color: '#666666',
+    textAlign: 'center',
   },
 });

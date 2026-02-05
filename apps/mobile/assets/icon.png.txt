@@ -1,3 +1,0 @@
-# Placeholder icon
-# Replace with actual 1024x1024 PNG icon
-# For now, create a simple colored square
